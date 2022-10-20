@@ -3,15 +3,15 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { ReactNode, FC } from "react";
 
-interface IPageProps {
+interface ILayoutProps {
   children: ReactNode;
 }
 
-const Layout: FC<IPageProps> = ({ children }) => {
+const Layout: FC<ILayoutProps> = ({ children }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main>{children}</main>
       <Footer />
     </>
   );
