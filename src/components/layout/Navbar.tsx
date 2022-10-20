@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "src/auth/useAuth";
 
 const Navbar = () => {
-  const authenticated = false;
-  const logout = () => null;
+  const { logout, authenticated } = useAuth();
+  // const authenticated = false;
+  // const logout = () => null;
 
   return (
     <div className="bg-nav h-16">
