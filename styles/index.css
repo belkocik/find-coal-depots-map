@@ -4,6 +4,8 @@
 
 body {
   background-color: #d9c3a8;
+  padding: 0;
+  margin: 0;
 }
 
 .hideMenuNav {

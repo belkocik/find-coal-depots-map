@@ -7,29 +7,30 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   return (
     <>
-      <nav className="px-2 sm:px-4 py-2.5 rounded bg-nav">
+      <nav className="px-2 sm:px-4  py-5 md:py-1.5 rounded bg-nav">
         <div className="w-full flex flex-wrap justify-between items-center mx-auto">
-          <a
-            href="https://www.flaticon.com/free-icon/combustible_6534871#"
-            className="flex items-center"
-            target="_blank"
-          >
-            <img
-              src="/coal-icon-logo.png"
-              alt="coal"
-              className="mr-3 h-6 sm:h-9"
-            />
+          <div className="flex items-center">
+            <a
+              href="https://www.flaticon.com/free-icon/combustible_6534871#"
+              target="_blank"
+            >
+              <img
+                src="/coal-icon-logo.png"
+                alt="coal"
+                className="mr-3 h-6 sm:h-9"
+              />
+            </a>
             <span className="self-center text-md md:text-xl font-semibold whitespace-nowrap dark:text-black">
               <Link href="/">
                 <a> Mapa składów z opałem</a>
               </Link>
             </span>
-          </a>
+          </div>
 
           {/* mobile menu start */}
           <section className=" flex lg:hidden">
             <div
-              className="HAMBURGER-ICON space-y-1"
+              className="space-y-1"
               onClick={() => setIsNavOpen((prev) => !prev)}
             >
               <span className="block h-0.5 w-5 animate-pulse bg-gray-800"></span>
@@ -110,7 +111,7 @@ const Navbar = () => {
                   href="/auth"
                   className="block py-2 pr-4 pl-3 md:p-0 dark:text-black"
                 >
-                  Zaloguj się
+                  <a>Zaloguj się</a>
                 </Link>
               )}
             </ul>
