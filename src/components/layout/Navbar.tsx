@@ -1,74 +1,88 @@
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "src/auth/useAuth";
 
 const Navbar = () => {
   const { logout, authenticated } = useAuth();
-  // const authenticated = false;
-  // const logout = () => null;
-
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   return (
-    <nav>
-      {/* <div classNameName="px-6 h-16 container flex flex-wrap justify-between items-center mx-auto">
-          <Link href="https://www.flaticon.com/free-icon/combustible_6534871#">
-            <a>
-              <img src="/coal-icon-logo.png" alt="coal" classNameName="w-12" />
-            </a>
-          </Link>
-          <Link href="/" classNameName="block py-2 pr-4 pl-3">
-            <a>Home</a>
-          </Link>
-          <div classNameName="hidden w-full md:block md:w-auto">
-            {authenticated ? (
-              <>
-                <Link href="/coal-depots/add" className="block py-2 pr-4 pl-3">
-                  <a>Dodaj skup węgla</a>
-                </Link>
-                <button onClick={logout}>Wyloguj</button>
-              </>
-            ) : (
-              <Link href="/auth" classNameName="block py-2 pr-4 pl-3">
-                Zaloguj się
-              </Link>
-            )}
-          </div>
-        </div> */}
-      <nav className=" px-2 sm:px-4 py-2.5 rounded bg-nav">
-        <div className="container flex flex-wrap justify-between items-center mx-auto">
-          <a href="https://flowbite.com/" className="flex items-center">
+    <>
+      <nav className="px-2 sm:px-4 py-2.5 rounded bg-nav">
+        <div className="w-full flex flex-wrap justify-between items-center mx-auto">
+          <a
+            href="https://www.flaticon.com/free-icon/combustible_6534871#"
+            className="flex items-center"
+            target="_blank"
+          >
             <img
               src="/coal-icon-logo.png"
               alt="coal"
               className="mr-3 h-6 sm:h-9"
             />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-black">
+            <span className="self-center text-md md:text-xl font-semibold whitespace-nowrap dark:text-black">
               <Link href="/">
                 <a> Mapa składów z opałem</a>
               </Link>
             </span>
           </a>
-          <button
-            data-collapse-toggle="navbar-default"
-            type="button"
-            className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-default"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+
+          {/* mobile menu start */}
+          <section className=" flex lg:hidden">
+            <div
+              className="HAMBURGER-ICON space-y-1"
+              onClick={() => setIsNavOpen((prev) => !prev)}
             >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
+              <span className="block h-0.5 w-5 animate-pulse bg-gray-800"></span>
+              <span className="block h-0.5 w-5 animate-pulse bg-gray-800"></span>
+              <span className="block h-0.5 w-5 animate-pulse bg-gray-800"></span>
+            </div>
+
+            <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+              <div
+                className="absolute top-0 right-0 px-8 py-8"
+                onClick={() => setIsNavOpen(false)}
+              >
+                <svg
+                  className="h-8 w-8 text-gray-600"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+              <ul className="flex flex-col items-center justify-between min-h-[250px]">
+                {authenticated ? (
+                  <>
+                    <li className="border-b border-gray-400 my-8 uppercase">
+                      <Link href="/coal-depots/add">
+                        <a>Dodaj skup węgla</a>
+                      </Link>
+                    </li>
+                    <li className="border-b border-gray-400 my-8 uppercase">
+                      <button onClick={logout}>Wyloguj</button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="border-b border-gray-400 my-8 uppercase">
+                      <Link href="/auth">
+                        <a>Zaloguj się</a>
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+          </section>
+
+          {/* mobile menu end*/}
+
+          {/* desktop menu */}
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="flex flex-col p-4 mt-4  rounded-lg border  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:text-black">
               {authenticated ? (
@@ -95,7 +109,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </nav>
+    </>
   );
 };
 
