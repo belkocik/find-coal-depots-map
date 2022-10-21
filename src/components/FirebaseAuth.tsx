@@ -32,6 +32,47 @@ const FirebaseAuth: FC = () => {
           firebaseAuth={firebase.auth()}
         />
       ) : null}
+      <style>
+        {`
+          .mdl-card {
+            background-color: #e8dbc9;
+          }
+          .progressbar {
+            background-color: #D9C3A8 !important;
+        }
+        
+        .mdl-button--raised.mdl-button--colored {
+            background-color: #D9C3A8 !important;
+            color: black;
+        }
+        
+        .mdl-button.mdl-js-button.mdl-button--primary {
+            color: #D9C3A8 !important;
+        }
+        
+        .firebaseui-textfield.mdl-textfield .firebaseui-label:after {
+          background-color: black !important;
+      }
+        
+        a.firebaseui-link {
+            color: black !important;
+        }
+        
+        .progressbar {
+            background-color: black !important;
+        }
+        
+        .bufferbar {
+            background-image: none !important;
+            background-color: #D9C3A8
+        }
+        
+        .auxbar {
+            background-image: none !important;
+            background-color: #D9C3A8 !important;
+        }
+        `}
+      </style>
     </div>
   );
 };

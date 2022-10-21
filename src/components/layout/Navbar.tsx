@@ -63,15 +63,23 @@ const Navbar = () => {
                         <a>Dodaj skup węgla</a>
                       </Link>
                     </li>
-                    <li className="border-b border-gray-400 my-8 uppercase">
-                      <button onClick={logout}>Wyloguj</button>
+                    <li className="border-b border-gray-400 my-8 ">
+                      <button
+                        onClick={() => {
+                          logout();
+                          setIsNavOpen(false);
+                        }}
+                        className="uppercase"
+                      >
+                        Wyloguj
+                      </button>
                     </li>
                   </>
                 ) : (
                   <>
                     <li className="border-b border-gray-400 my-8 uppercase">
                       <Link href="/auth">
-                        <a>Zaloguj się</a>
+                        <a onClick={() => setIsNavOpen(false)}>Zaloguj się</a>
                       </Link>
                     </li>
                   </>
