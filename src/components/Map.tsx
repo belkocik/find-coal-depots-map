@@ -1,7 +1,4 @@
-import { useRef, useState } from "react";
-import Link from "next/link";
-import Image from "@cloudinary/react";
-// import ReactMapGL, { Marker, Popup, ViewState, MapProps } from "react-map-gl";
+import { useRef, useState, useCallback } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxMap, { Marker, Popup, ViewState, MapRef } from "react-map-gl";
 
@@ -12,7 +9,7 @@ const Mapbox = ({}: IProps) => {
   const [viewport, setViewport] = useState<ViewState>({
     latitude: 50.102242,
     longitude: 21.338631,
-    zoom: 10,
+    zoom: 6,
     bearing: 0,
     pitch: 0,
     padding: { left: 0, right: 0, top: 0, bottom: 0 },
@@ -29,6 +26,7 @@ const Mapbox = ({}: IProps) => {
         mapStyle="mapbox://styles/mapbox/streets-v11"
         minZoom={5.5}
         maxZoom={15}
+        ref={(instance) => (mapRef.current = instance)}
       ></MapboxMap>
     </div>
   );
