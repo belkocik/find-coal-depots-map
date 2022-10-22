@@ -4,8 +4,8 @@ import SearchBox from "./SearchBox";
 
 interface IFormData {
   address: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   coalDepotName: string;
   telephone: string;
   coalAmount: string;
@@ -26,13 +26,15 @@ const CoalDepotForm = ({}: IProps) => {
     defaultValues: {},
   });
 
-  // useEffect(() => {
-  //   register({ name: "address" }, { required: "Please enter your address" });
-  //   register({ name: "latitude" }, { required: true, min: -90, max: 90 });
-  //   register({ name: "longitude" }, { required: true, min: -180, max: 180 });
-  // }, [register]);
+  useEffect(() => {
+    register({ name: "address" }, { required: "Please enter your address" });
+    register({ name: "latitude" }, { required: true, min: -90, max: 90 });
+    register({ name: "longitude" }, { required: true, min: -180, max: 180 });
+  }, [register]);
 
   const handleCreate = async (data: IFormData) => {};
+
+  const address = watch("address");
 
   const onSubmit = (data: IFormData) => {
     setSubmitting(true);
@@ -53,13 +55,14 @@ const CoalDepotForm = ({}: IProps) => {
         {/* {Search field} */}
         <SearchBox
           onSelectAddress={(address, latitude, longitude) => {
-            // setValue("address", address);
-            // setValue("latitude", latitude);
-            // setValue("longitude", longitude);
+            setValue("address", address);
+            setValue("latitude", latitude);
+            setValue("longitude", longitude);
           }}
           defaultValue=""
         />
       </div>
+      <h2>{address}</h2>
     </form>
   );
 };

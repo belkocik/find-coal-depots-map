@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-import { FunctionComponent } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -58,10 +57,17 @@ const ReadySearchBox = ({ onSelectAddress, defaultValue }: ISearchBoxProps) => {
     }
   };
   const handleSelect = async (address: string) => {
-    console.log({ address });
-  };
+    setValue(address, false);
+    clearSuggestions();
 
-  console.log({ status, data });
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      onSelectAddress(address, lat, lng);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
 
   return (
     <Combobox onSelect={handleSelect}>
@@ -74,6 +80,15 @@ const ReadySearchBox = ({ onSelectAddress, defaultValue }: ISearchBoxProps) => {
         className="w-full p-2"
         autoComplete="off"
       />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK"
+            ? data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))
+            : null}
+        </ComboboxList>
+      </ComboboxPopover>
     </Combobox>
   );
 };

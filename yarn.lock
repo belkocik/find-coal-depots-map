@@ -3576,10 +3576,10 @@ react-firebaseui@^6.0.0:
   dependencies:
     firebaseui "^6.0.0"
 
-react-hook-form@^7.38.0:
-  version "7.38.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.38.0.tgz#53d6a68df587ce4ce88352f63e0ecc7fc8779320"
-  integrity sha512-gxWW1kMeru9xR1GoR+Iw4hA+JBOM3SHfr4DWCUKY0xc7Vv1MLsF109oHtBeWl9shcyPFx67KHru44DheN0XY5A==
+react-hook-form@6.11.1:
+  version "6.11.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.11.1.tgz#32ff518950c5f3cab5956b365e9aeed90daaf7f3"
+  integrity sha512-qftXiF1kY4KsoTjhaf44jijZPC9j1wff2BpJXGZFU2vtT3o1OXl1WeYAACr9b9tN159M42JKBHVR+kdrp5AL3A==
 
 react-is@^16.13.1:
   version "16.13.1"
