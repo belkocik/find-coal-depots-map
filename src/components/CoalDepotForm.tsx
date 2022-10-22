@@ -4,8 +4,8 @@ import SearchBox from "./SearchBox";
 
 interface IFormData {
   address: string;
-  latitude: number | null;
-  longitude: number | null;
+  latitude: number;
+  longitude: number;
   coalDepotName: string;
   telephone: string;
   coalAmount: string;
