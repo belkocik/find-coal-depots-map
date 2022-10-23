@@ -1,7 +1,9 @@
 <a align="center">
   <img src="https://media.graphassets.com/epH89iYsQ8q4FZqeM3mU" width="100%">
 </a>
+
 # find coal depots on a map app ⚛️
+
 ## Working on it...
 
 <br />
