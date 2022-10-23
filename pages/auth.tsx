@@ -4,7 +4,11 @@ import { GetServerSideProps, NextApiRequest } from "next";
 import { loadIdToken } from "src/auth/firebaseAdmin";
 
 const Auth = () => {
-  return <FirebaseAuth />;
+  return (
+    <div className="p-2">
+      <FirebaseAuth />
+    </div>
+  );
 };
 
 export default Auth;

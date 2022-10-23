@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import SearchBox from "./SearchBox";
@@ -7,7 +8,8 @@ interface IFormData {
   latitude: number;
   longitude: number;
   coalDepotName: string;
-  telephone: string;
+  mobilePhone: string;
+  landline: string;
   coalAmount: string;
   image: FileList;
 }
@@ -16,23 +18,21 @@ interface IProps {}
 
 const CoalDepotForm = ({}: IProps) => {
   const [submitting, setSubmitting] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<IFormData>({
-    defaultValues: {},
-  });
+  const [previewImage, setPreviewImage] = useState<string>();
+  const { register, handleSubmit, setValue, watch, errors } =
+    useForm<IFormData>({
+      defaultValues: {},
+    });
 
   useEffect(() => {
-    register({ name: "address" }, { required: "Please enter your address" });
+    register({ name: "address" }, { required: "Dodaj adres składu opału" });
     register({ name: "latitude" }, { required: true, min: -90, max: 90 });
     register({ name: "longitude" }, { required: true, min: -180, max: 180 });
   }, [register]);
 
-  const handleCreate = async (data: IFormData) => {};
+  const handleCreate = async (data: IFormData) => {
+    console.log({ data });
+  };
 
   const address = watch("address");
 
@@ -40,13 +40,14 @@ const CoalDepotForm = ({}: IProps) => {
     setSubmitting(true);
     handleCreate(data);
   };
+
   return (
     <form
       action=""
       className="mx-auto max-w-xl py-4"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h1 className="text-xl">Dodaj nowy skład opału</h1>
+      <h1 className="text-xl font-semibold">Dodaj nowy skład węgla/opału</h1>
 
       <div className="mt-4">
         <label htmlFor="search" className="block">
@@ -61,8 +62,148 @@ const CoalDepotForm = ({}: IProps) => {
           }}
           defaultValue=""
         />
+        {errors.address ? (
+          <p className="text-red-600">▲ {errors.address.message} ▲</p>
+        ) : null}
       </div>
-      <h2>{address}</h2>
+      {address ? (
+        <>
+          <div className="mt-4 ">
+            <label
+              htmlFor="image"
+              className="p-4 border-dashed border-4 border-nav block cursor-pointer"
+            >
+              Kliknij aby dodać zdjęcie (16:9)
+            </label>
+            <input
+              id="image"
+              name="image"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              ref={register({
+                validate: (fileList: FileList) => {
+                  if (fileList.length === 1) return true;
+                  return "Dodaj tylko jedno zdjęcie";
+                },
+              })}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                if (event?.target?.files?.[0]) {
+                  const file = event.target.files[0];
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setPreviewImage(reader.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+            {previewImage ? (
+              <img
+                src={previewImage}
+                className="mt-4 object-cover"
+                style={{ width: "576px", height: `${(9 / 16) * 576}px` }}
+              />
+            ) : null}
+            {errors.image ? (
+              <p className="text-red-600">▲ {errors.image.message} ▲</p>
+            ) : null}
+          </div>
+
+          <div className="mt-4 ">
+            <label htmlFor="coalDepotName" className="block">
+              Nazwa składu
+            </label>
+            <input
+              type="text"
+              id="coalDepotName"
+              name="coalDepotName"
+              className="p-2 w-full"
+              ref={register({
+                required: "Wpisz nazwę składu z węglem/opałem",
+                maxLength: { message: "Maksymalnie 50 znaków", value: 50 },
+              })}
+            />
+            {errors.coalDepotName ? (
+              <p className="text-red-600">▲ {errors.coalDepotName.message} ▲</p>
+            ) : null}
+          </div>
+
+          <div className="mt-4 ">
+            <label htmlFor="mobilePhone" className="block">
+              Numer telefonu komórkowego do właściciela składu
+            </label>
+            <input
+              type="text"
+              id="mobilePhone"
+              name="mobilePhone"
+              className="p-2 w-full"
+              ref={register({
+                // required: "Wpisz telefon komórkowy do właściciela składu",
+                maxLength: { message: "Numer telefonu ma 9 cyfr!", value: 9 },
+              })}
+            />
+            {errors.mobilePhone ? (
+              <p className="text-red-600">▲ {errors.mobilePhone.message} ▲</p>
+            ) : null}
+          </div>
+
+          <div className="mt-4 ">
+            <label htmlFor="landline" className="block">
+              Numer telefonu stacjonarnego do właściciela składu
+            </label>
+            <input
+              type="text"
+              id="landline"
+              name="landline"
+              className="p-2 w-full"
+              ref={register({
+                // required: "Wpisz telefon komórkowy do właściciela składu",
+                maxLength: {
+                  message: "Numer stacjonarny ma 9 cyfr!",
+                  value: 9,
+                },
+              })}
+            />
+            {errors.landline ? (
+              <p className="text-red-600">▲ {errors.landline.message} ▲</p>
+            ) : null}
+          </div>
+
+          <div className="mt-4 ">
+            <label htmlFor="coalAmount" className="block">
+              Ilość węgla dostepego na składzie [tony]
+            </label>
+            <input
+              type="text"
+              id="coalAmount"
+              name="coalAmount"
+              placeholder="węgiel 20t, ekogroszek 5t, miał: 7t, itd."
+              className="p-2 w-full"
+              ref={register({
+                required: "Wpisz Ilość węgla dostepego na składzie",
+                maxLength: { message: "Numer telefonu ma 9 znaków!", value: 9 },
+              })}
+            />
+            {errors.coalAmount ? (
+              <p className="text-red-600">▲ {errors.coalAmount.message} ▲</p>
+            ) : null}
+          </div>
+
+          <div className="mt-4">
+            <button
+              className="bg-nav hover:bg-navHover font-bold py-2 px-4 rounded "
+              type="submit"
+              disabled={submitting}
+            >
+              Wyślij
+            </button>{" "}
+            <Link href="/">
+              <a>Anuluj</a>
+            </Link>
+          </div>
+        </>
+      ) : null}
     </form>
   );
 };

@@ -5,7 +5,7 @@ import CoalDepotForm from "../../src/components/CoalDepotForm";
 
 const AddCoalDepot = () => {
   return (
-    <div>
+    <div className="p-2">
       <CoalDepotForm />
     </div>
   );

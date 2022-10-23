@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import MapboxMap, { Marker, Popup, ViewState, MapRef } from "react-map-gl";
+import MapboxMap, { ViewState, MapRef } from "react-map-gl";
 
 interface IProps {}
 
 const Mapbox = ({}: IProps) => {
   const mapRef = useRef<MapRef | null>(null);
   const [viewport, setViewport] = useState<ViewState>({
-    latitude: 50.102242,
-    longitude: 21.338631,
-    zoom: 6,
+    latitude: 51.759445,
+    longitude: 19.457216,
+    zoom: 8,
     bearing: 0,
     pitch: 0,
     padding: { left: 0, right: 0, top: 0, bottom: 0 },
