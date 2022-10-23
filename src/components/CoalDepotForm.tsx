@@ -10,7 +10,7 @@ interface IFormData {
   coalDepotName: string;
   mobilePhone: string;
   landline: string;
-  coalAmount: string;
+  coalDescAndAmount: string;
   image: FileList;
 }
 
@@ -171,13 +171,13 @@ const CoalDepotForm = ({}: IProps) => {
           </div>
 
           <div className="mt-4 ">
-            <label htmlFor="coalAmount" className="block">
+            <label htmlFor="coalDescAndAmount" className="block">
               Ilość węgla dostepego na składzie [tony]
             </label>
             <input
               type="text"
-              id="coalAmount"
-              name="coalAmount"
+              id="coalDescAndAmount"
+              name="coalDescAndAmount"
               placeholder="węgiel 20t, ekogroszek 5t, miał: 7t, itd."
               className="p-2 w-full"
               ref={register({
@@ -185,8 +185,10 @@ const CoalDepotForm = ({}: IProps) => {
                 maxLength: { message: "Numer telefonu ma 9 znaków!", value: 9 },
               })}
             />
-            {errors.coalAmount ? (
-              <p className="text-red-600">▲ {errors.coalAmount.message} ▲</p>
+            {errors.coalDescAndAmount ? (
+              <p className="text-red-600">
+                ▲ {errors.coalDescAndAmount.message} ▲
+              </p>
             ) : null}
           </div>
 
