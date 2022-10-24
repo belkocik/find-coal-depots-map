@@ -27,5 +27,5 @@ export const loadIdToken = async (
 
   const decoded = await verifyIdToken(req.cookies.token);
   if (!decoded) return null; // user is not authenticated
-  return decoded.uid; // user token is valid
+  return decoded.userId; // user token is valid
 };

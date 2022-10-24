@@ -2,6 +2,16 @@ import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import SearchBox from "./SearchBox";
+import { useMutation, gql } from "@apollo/client";
+
+const SIGNATURE_MUTATION = gql`
+  mutation CreateSignatureMutation {
+    createImageSignature {
+      signature
+      timestamp
+    }
+  }
+`;
 
 interface IFormData {
   address: string;
