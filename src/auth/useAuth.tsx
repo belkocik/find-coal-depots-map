@@ -10,13 +10,7 @@ import { useRouter } from "next/router";
 import "firebase/auth";
 import initFirebase from "./initFirebase";
 import { removeTokenCookie, setTokenCookie } from "./tokenCookies";
-import {
-  User,
-  signOut,
-  getAuth,
-  onAuthStateChanged,
-  getIdToken,
-} from "firebase/auth";
+import { User, signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface IAuthContext {
   user: User | null;
@@ -51,6 +45,7 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
         console.error(error);
       });
   };
+  console.log(user); // there is data about logged in user
 
   useEffect(() => {
     const cancelAuthListener = onAuthStateChanged(auth, async (user) => {

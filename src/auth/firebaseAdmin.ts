@@ -3,7 +3,6 @@ import { NextApiRequest } from "next";
 
 const verifyIdToken = (token: string) => {
   const firebasePrivateKey: string = process.env.FIREBASE_PRIVATE_KEY ?? ""; // ?? if nullish return empty string ""
-
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert({
@@ -17,7 +16,10 @@ const verifyIdToken = (token: string) => {
   return admin
     .auth()
     .verifyIdToken(token)
-    .catch(() => null); // if token is not valid);
+    .catch(() => {
+      console.log("token is not valid");
+      return null;
+    }); // if token is not valid);
 };
 
 export const loadIdToken = async (
@@ -27,5 +29,5 @@ export const loadIdToken = async (
 
   const decoded = await verifyIdToken(req.cookies.token);
   if (!decoded) return null; // user is not authenticated
-  return decoded.userId; // user token is valid
+  return decoded.uid; // user token is valid
 };
