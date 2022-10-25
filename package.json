@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "yarn run generate",
     "dev": "next dev",
+    "prebuild": "yarn run generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "apollo client:codegen --target typescript --localSchemaFile schema.gql --outputFlat --includes \"{pages,src}/**\" --excludes \"src/generated/**\" src/generated"
+    "generate": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",

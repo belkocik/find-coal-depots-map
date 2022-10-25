@@ -8,8 +8,8 @@ export async function createContext({
 }: {
   req: NextApiRequest;
 }): Promise<Context> {
-  const userId = await loadIdToken(req);
-
+  // const userId = await loadIdToken(req);
+  const userId = "RANDOM";
   return {
     userId,
     prisma,

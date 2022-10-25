@@ -1,18 +1,32 @@
+import { useCreateSignatureMutation } from "generated/graphql";
 import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import SearchBox from "./SearchBox";
-import { useMutation, gql } from "@apollo/client";
 
-const SIGNATURE_MUTATION = gql`
-  mutation CreateSignatureMutation {
-    createImageSignature {
-      signature
-      timestamp
-    }
-  }
-`;
+interface IUploadImageResponse {
+  secure_url: string;
+}
 
+async function uploadImage(
+  image: File,
+  signature: string,
+  timestamp: number
+): Promise<IUploadImageResponse> {
+  const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("signature", signature);
+  formData.append("timestamp", timestamp.toString());
+  formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_KEY ?? "");
+
+  const response = await fetch(url, {
+    method: "post",
+    body: formData,
+  });
+  return response.json();
+}
 interface IFormData {
   address: string;
   latitude: number;
@@ -40,8 +54,14 @@ const CoalDepotForm = ({}: IProps) => {
     register({ name: "longitude" }, { required: true, min: -180, max: 180 });
   }, [register]);
 
+  const [createSignatureMutation] = useCreateSignatureMutation();
   const handleCreate = async (data: IFormData) => {
-    console.log({ data });
+    const { data: signatureData } = await createSignatureMutation();
+    if (signatureData) {
+      const { timestamp, signature } = signatureData.createImageSignature;
+      const imageData = await uploadImage(data.image[0], signature, timestamp);
+      // const imageUrl = imageData.secure_url
+    }
   };
 
   const address = watch("address");
@@ -192,7 +212,10 @@ const CoalDepotForm = ({}: IProps) => {
               className="p-2 w-full"
               ref={register({
                 required: "Wpisz Ilość węgla dostepego na składzie",
-                maxLength: { message: "Numer telefonu ma 9 znaków!", value: 9 },
+                maxLength: {
+                  message: "Numer telefonu ma 400 znaków!",
+                  value: 400,
+                },
               })}
             />
             {errors.coalDescAndAmount ? (
