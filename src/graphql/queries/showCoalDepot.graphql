@@ -1,0 +1,14 @@
+query ShowCoalDepot($id: String!) {
+  coalDepot(id: $id) {
+    id
+    userId
+    address
+    publicId
+    coalDepotName
+    mobilePhone
+    landline
+    coalDescAndAmount
+    latitude
+    longitude
+  }
+}

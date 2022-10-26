@@ -14,6 +14,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.0",
     "@cloudinary/react": "^1.5.0",
+    "@cloudinary/url-gen": "^1.8.6",
     "@prisma/client": "^4.5.0",
     "@reach/combobox": "^0.18.0",
     "apollo-server-micro": "^3.10.3",
@@ -32,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-firebaseui": "^6.0.0",
     "react-hook-form": "^6.15.4",
+    "react-hot-toast": "^2.4.0",
     "react-map-gl": "^7.0.19",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",

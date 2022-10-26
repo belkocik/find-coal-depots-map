@@ -9,7 +9,12 @@ CREATE TABLE "coalDepots" (
     "coalDepotName" TEXT NOT NULL,
     "mobilePhone" TEXT NOT NULL,
     "landline" TEXT NOT NULL,
-    "coalDescAndAmount" TEXT NOT NULL,
+    "thickCoal" DOUBLE PRECISION NOT NULL,
+    "mediumCoal" DOUBLE PRECISION NOT NULL,
+    "smallCoal" DOUBLE PRECISION NOT NULL,
+    "thickCoalPrice" DOUBLE PRECISION NOT NULL,
+    "mediumCoalPrice" DOUBLE PRECISION NOT NULL,
+    "smallCoalPrice" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

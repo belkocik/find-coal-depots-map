@@ -9,6 +9,7 @@ module.exports = {
       colors: {
         nav: "#e8dbc9",
         navHover: "#c8ac86",
+        span: "#361b17",
       },
     },
   },

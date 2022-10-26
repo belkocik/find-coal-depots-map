@@ -12,7 +12,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
     <>
       <Navbar />
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

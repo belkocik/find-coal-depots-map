@@ -94,6 +94,11 @@ class CoalDepot {
 
 @Resolver()
 export class CoalDepotResolver {
+  @Query((_returns) => CoalDepot, { nullable: true })
+  async coalDepot(@Arg("id") id: string, @Ctx() ctx: Context) {
+    return ctx.prisma.coalDepot.findFirst({ where: { id: parseInt(id, 10) } });
+  }
+
   @Authorized()
   @Mutation((_returns) => CoalDepot, { nullable: true })
   async createCoalDepot(

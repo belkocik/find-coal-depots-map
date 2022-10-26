@@ -21,7 +21,12 @@ model CoalDepot {
   coalDepotName String
   mobilePhone String
   landline String
-  coalDescAndAmount String
+  thickCoal Float
+  mediumCoal Float
+  smallCoal Float
+  thickCoalPrice Float
+  mediumCoalPrice Float
+  smallCoalPrice Float
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
 

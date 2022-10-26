@@ -5,6 +5,7 @@ import { AuthProvider } from "src/auth/useAuth";
 import { useState, useEffect } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "src/utils/apollo";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = useApollo();
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <AuthProvider>
           <Layout>
+            <Toaster position="top-center" />
             <Component {...pageProps} />
           </Layout>
         </AuthProvider>

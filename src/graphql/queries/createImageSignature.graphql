@@ -1,4 +1,4 @@
-mutation CreateSignature {
+mutation CreateImageSignature {
   createImageSignature {
     signature
     timestamp

@@ -1,0 +1,5 @@
+mutation CreateCoalDepot($input: CoalDepotInput!) {
+  createCoalDepot(input: $input) {
+    id
+  }
+}
