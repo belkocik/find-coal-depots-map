@@ -35,6 +35,8 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
   const router = useRouter();
 
   const auth = getAuth();
+  // console.log("auth:", auth);
+  // console.log("user", user);
 
   const logout = () => {
     signOut(auth)
@@ -45,7 +47,6 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
         console.error(error);
       });
   };
-  console.log(user); // there is data about logged in user
 
   useEffect(() => {
     const cancelAuthListener = onAuthStateChanged(auth, async (user) => {

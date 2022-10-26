@@ -3,11 +3,40 @@
 
 
 type Mutation {
+  createCoalDepot(input: coalDepotInput): coalDepot
   createImageSignature: imageSignature!
 }
 
 type Query {
   ok: Boolean!
+}
+
+type coalDepot {
+  coalDepotName: String!
+  coalDescAndAmount: String!
+  id: ID!
+  image: String!
+  landline: String!
+  latitude: Float!
+  longitude: Float!
+  mobilePhone: String!
+  publicId: String!
+  userId: String
+}
+
+input coalDepotInput {
+  address: String!
+  coalDepotName: String!
+  coalDescAndAmount: String!
+  coordinates: coordinateInput!
+  image: String!
+  landline: String!
+  mobilePhone: String!
+}
+
+input coordinateInput {
+  latitude: Float!
+  longitude: Float!
 }
 
 type imageSignature {

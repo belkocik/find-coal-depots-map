@@ -1,6 +1,5 @@
 import { FieldResolver } from "nexus";
 const cloudinary = require("cloudinary").v2;
-// import { getTokenCookie } from "src/auth/tokenCookies";
 
 export const createImageSignatureResolver: FieldResolver<
   "Mutation",

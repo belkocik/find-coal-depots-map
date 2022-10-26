@@ -14,6 +14,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  coalDepotInput: { // input type
+    address: string; // String!
+    coalDepotName: string; // String!
+    coalDescAndAmount: string; // String!
+    coordinates: NexusGenInputs['coordinateInput']; // coordinateInput!
+    image: string; // String!
+    landline: string; // String!
+    mobilePhone: string; // String!
+  }
+  coordinateInput: { // input type
+    latitude: number; // Float!
+    longitude: number; // Float!
+  }
 }
 
 export interface NexusGenEnums {
@@ -30,6 +43,17 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
+  coalDepot: { // root type
+    coalDepotName: string; // String!
+    coalDescAndAmount: string; // String!
+    id: string; // ID!
+    image: string; // String!
+    landline: string; // String!
+    latitude: number; // Float!
+    longitude: number; // Float!
+    mobilePhone: string; // String!
+    userId?: string | null; // String
+  }
   imageSignature: { // root type
     signature: string; // String!
     timestamp: number; // Int!
@@ -48,10 +72,23 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    createCoalDepot: NexusGenRootTypes['coalDepot'] | null; // coalDepot
     createImageSignature: NexusGenRootTypes['imageSignature']; // imageSignature!
   }
   Query: { // field return type
     ok: boolean; // Boolean!
+  }
+  coalDepot: { // field return type
+    coalDepotName: string; // String!
+    coalDescAndAmount: string; // String!
+    id: string; // ID!
+    image: string; // String!
+    landline: string; // String!
+    latitude: number; // Float!
+    longitude: number; // Float!
+    mobilePhone: string; // String!
+    publicId: string; // String!
+    userId: string | null; // String
   }
   imageSignature: { // field return type
     signature: string; // String!
@@ -61,10 +98,23 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    createCoalDepot: 'coalDepot'
     createImageSignature: 'imageSignature'
   }
   Query: { // field return type name
     ok: 'Boolean'
+  }
+  coalDepot: { // field return type name
+    coalDepotName: 'String'
+    coalDescAndAmount: 'String'
+    id: 'ID'
+    image: 'String'
+    landline: 'String'
+    latitude: 'Float'
+    longitude: 'Float'
+    mobilePhone: 'String'
+    publicId: 'String'
+    userId: 'String'
   }
   imageSignature: { // field return type name
     signature: 'String'
@@ -73,6 +123,11 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createCoalDepot: { // args
+      input?: NexusGenInputs['coalDepotInput'] | null; // coalDepotInput
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -83,7 +138,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

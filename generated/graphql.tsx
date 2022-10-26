@@ -17,12 +17,47 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCoalDepot?: Maybe<CoalDepot>;
   createImageSignature: ImageSignature;
+};
+
+
+export type MutationCreateCoalDepotArgs = {
+  input?: InputMaybe<CoalDepotInput>;
 };
 
 export type Query = {
   __typename?: 'Query';
   ok: Scalars['Boolean'];
+};
+
+export type CoalDepot = {
+  __typename?: 'coalDepot';
+  coalDepotName: Scalars['String'];
+  coalDescAndAmount: Scalars['String'];
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  landline: Scalars['String'];
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+  mobilePhone: Scalars['String'];
+  publicId: Scalars['String'];
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type CoalDepotInput = {
+  address: Scalars['String'];
+  coalDepotName: Scalars['String'];
+  coalDescAndAmount: Scalars['String'];
+  coordinates: CoordinateInput;
+  image: Scalars['String'];
+  landline: Scalars['String'];
+  mobilePhone: Scalars['String'];
+};
+
+export type CoordinateInput = {
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
 };
 
 export type ImageSignature = {

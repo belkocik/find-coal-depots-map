@@ -1,1 +1,2 @@
-export * from "./coalDepots";
+export * from "./image";
+export * from "./coalDepot";

@@ -1,7 +1,7 @@
-import { PrismaClient } from "src/graphql/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export interface Context {
-  uid: string | null;
+  uid?: string | null;
   prisma: PrismaClient;
 }
 
