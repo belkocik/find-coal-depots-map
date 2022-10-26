@@ -1,17 +1,18 @@
-import { makeSchema } from "nexus";
-import { join } from "path";
-import * as types from "./types";
+import { buildSchemaSync, Resolver, Query } from "type-graphql";
+import { ImageResolver } from "./types/image";
+import { CoalDepotResolver } from "./types/coalDepot";
+import { authChecker } from "./auth";
 
-const schema = makeSchema({
-  types,
-  contextType: {
-    module: join(process.cwd(), "./src/types/Context.ts"),
-    export: "Context",
-  },
-  outputs: {
-    schema: join(process.cwd(), "./generated/schema.graphql"),
-    typegen: join(process.cwd(), "./generated/nexus-typegen.d.ts"),
-  },
+@Resolver()
+class DummyResolver {
+  @Query((_returns) => String)
+  hello() {
+    return "Nice to meet you!";
+  }
+}
+
+export const schema = buildSchemaSync({
+  resolvers: [DummyResolver, ImageResolver, CoalDepotResolver],
+  emitSchemaFile: process.env.NODE_ENV === "development",
+  authChecker,
 });
-
-export { schema };

@@ -1,4 +1,4 @@
-import { useCreateSignatureMutation } from "generated/graphql";
+// import { useCreateSignatureMutation } from "generated/graphql";
 import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
@@ -54,14 +54,14 @@ const CoalDepotForm = ({}: IProps) => {
     register({ name: "longitude" }, { required: true, min: -180, max: 180 });
   }, [register]);
 
-  const [createSignatureMutation] = useCreateSignatureMutation();
+  // const [createSignatureMutation] = useCreateSignatureMutation();
   const handleCreate = async (data: IFormData) => {
-    const { data: signatureData } = await createSignatureMutation();
-    if (signatureData) {
-      const { timestamp, signature } = signatureData.createImageSignature;
-      const imageData = await uploadImage(data.image[0], signature, timestamp);
-      // const imageUrl = imageData.secure_url
-    }
+    // const { data: signatureData } = await createSignatureMutation();
+    // if (signatureData) {
+    //   const { timestamp, signature } = signatureData.createImageSignature;
+    //   const imageData = await uploadImage(data.image[0], signature, timestamp);
+    //   // const imageUrl = imageData.secure_url
+    // }
   };
 
   const address = watch("address");

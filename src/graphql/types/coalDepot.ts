@@ -1,63 +1,117 @@
 import {
-  extendType,
-  objectType,
-  inputObjectType,
-  nonNull,
-  nullable,
-} from "nexus";
-import { createCoalDepotResolver } from "../resolvers/coalDepotResolver";
+  ObjectType,
+  InputType,
+  Field,
+  ID,
+  Float,
+  Int,
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  Ctx,
+  Authorized,
+} from "type-graphql";
+import { Min, Max } from "class-validator";
+import { getBoundsOfDistance } from "geolib";
+import type { Context, AuthorizedContext } from "src/graphql/context";
 
-const CoordinateInput = inputObjectType({
-  name: "coordinateInput",
-  definition(t) {
-    t.nonNull.float("latitude");
-    t.nonNull.float("longitude");
-  },
-});
+@InputType()
+class CoordinatesInput {
+  @Min(-90)
+  @Max(90)
+  @Field((_type) => Float)
+  latitude!: number;
 
-const CoalDepotInput = inputObjectType({
-  name: "coalDepotInput",
-  definition(t) {
-    t.nonNull.string("address");
-    t.field("coordinates", {
-      type: nonNull(CoordinateInput),
-    });
-    t.nonNull.string("coalDepotName");
-    t.nonNull.string("mobilePhone");
-    t.nonNull.string("landline");
-    t.nonNull.string("coalDescAndAmount");
-    t.nonNull.string("image");
-  },
-});
+  @Min(-180)
+  @Max(180)
+  @Field((_type) => Float)
+  longitude!: number;
+}
 
-const CoalDepot = objectType({
-  name: "coalDepot",
-  definition(t) {
-    t.nonNull.id("id");
-    t.nullable.string("userId");
-    t.nonNull.float("latitude");
-    t.nonNull.float("longitude");
-    t.nonNull.string("coalDepotName");
-    t.nonNull.string("mobilePhone");
-    t.nonNull.string("landline");
-    t.nonNull.string("coalDescAndAmount");
-    t.nonNull.string("image");
-    t.nonNull.string("publicId", {
-      resolve: (root) => {
-        const parts = root.image.split("/");
-        return parts[parts.length - 1];
+@InputType()
+class CoalDepotInput {
+  @Field((_type) => String)
+  address!: string;
+
+  @Field((_type) => String)
+  image!: string;
+
+  @Field((_type) => CoordinatesInput)
+  coordinates!: CoordinatesInput;
+
+  @Field((_type) => String)
+  coalDepotName!: string;
+
+  @Field((_type) => String)
+  mobilePhone!: string;
+
+  @Field((_type) => String)
+  landline!: string;
+
+  @Field((_type) => String)
+  coalDescAndAmount!: string;
+}
+
+@ObjectType()
+class CoalDepot {
+  @Field((_type) => ID)
+  id!: number;
+
+  @Field((_type) => String)
+  userId!: string;
+
+  @Field((_type) => Float)
+  latitude!: number;
+
+  @Field((_type) => Float)
+  longitude!: number;
+
+  @Field((_type) => String)
+  address!: string;
+
+  @Field((_type) => String)
+  image!: string;
+
+  @Field((_type) => String)
+  publicId(): string {
+    const parts = this.image.split("/");
+    return parts[parts.length - 1];
+  }
+
+  @Field((_type) => String)
+  coalDepotName!: string;
+
+  @Field((_type) => String)
+  mobilePhone!: string;
+
+  @Field((_type) => String)
+  landline!: string;
+
+  @Field((_type) => String)
+  coalDescAndAmount!: string;
+}
+
+@Resolver()
+export class CoalDepotResolver {
+  @Authorized()
+  @Mutation((_returns) => CoalDepot, { nullable: true })
+  async createCoalDepot(
+    @Arg("input") input: CoalDepotInput,
+    @Ctx() ctx: AuthorizedContext
+  ) {
+    return await ctx.prisma.coalDepot.create({
+      data: {
+        userId: ctx.uid,
+        address: input.address,
+        image: input.image,
+        latitude: input.coordinates.latitude,
+        longitude: input.coordinates.longitude,
+        coalDepotName: input.coalDepotName,
+        mobilePhone: input.mobilePhone,
+        landline: input.landline,
+        coalDescAndAmount: input.coalDescAndAmount,
       },
     });
-  },
-});
-
-export const createCoalDepot = extendType({
-  type: "Mutation",
-  definition: (t) => {
-    t.field("createCoalDepot", {
-      type: CoalDepot,
-      args: { input: nullable(CoalDepotInput) },
-      resolve: createCoalDepotResolver,
-    });
-  },
-});
+  }
+}

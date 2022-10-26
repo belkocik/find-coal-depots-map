@@ -1,26 +1,10 @@
-import prisma from "./prisma";
-import { NextApiRequest } from "next";
-import { loadIdToken } from "src/auth/firebaseAdmin";
-import { Context, AuthorizedContext } from "src/types/Context";
-import { getAuth } from "firebase/auth";
+import { PrismaClient } from "@prisma/client";
 
-export async function createContext({
-  req,
-}: {
-  req: NextApiRequest;
-}): Promise<Context> {
-  const uid = await loadIdToken(req);
+export interface Context {
+  uid: string | null;
+  prisma: PrismaClient;
+}
 
-  // console.log("it is userId from context.ts", uid);
-
-  const user = getAuth();
-  if (user.currentUser?.uid === null) {
-    console.log("user not logged in");
-    return { prisma };
-  }
-
-  return {
-    uid,
-    prisma,
-  };
+export interface AuthorizedContext extends Context {
+  uid: string;
 }

@@ -1,9 +1,11 @@
-// import { NextApiRequest, NextApiResponse } from "next";
 import "reflect-metadata";
+import { NextApiRequest } from "next";
 import Cors from "micro-cors";
 import { ApolloServer } from "apollo-server-micro";
 import { schema } from "src/graphql/schema";
-import { createContext } from "src/graphql/context";
+import { loadIdToken } from "src/auth/firebaseAdmin";
+import { Context } from "src/graphql/context";
+import prisma from "src/graphql/prisma";
 
 export const config = {
   api: {
@@ -15,7 +17,14 @@ const cors = Cors();
 
 const apolloServer = new ApolloServer({
   schema,
-  context: createContext,
+  context: async ({ req }: { req: NextApiRequest }): Promise<Context> => {
+    const uid = await loadIdToken(req);
+
+    return {
+      uid,
+      prisma,
+    };
+  },
 });
 
 const startServer = apolloServer.start();
