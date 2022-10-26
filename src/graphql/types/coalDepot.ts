@@ -15,6 +15,7 @@ import {
 import { Min, Max } from "class-validator";
 import { getBoundsOfDistance } from "geolib";
 import type { Context, AuthorizedContext } from "src/graphql/context";
+import { initScriptLoader } from "next/script";
 
 @InputType()
 class CoordinatesInput {
@@ -50,19 +51,19 @@ class CoalDepotInput {
   landline!: string;
 
   @Field((_type) => Float)
-  thickCoal!: number;
+  thickCoalAmount!: number;
 
   @Field((_type) => Float)
   thickCoalPrice!: number;
 
   @Field((_type) => Float)
-  mediumCoal!: number;
+  mediumCoalAmount!: number;
 
   @Field((_type) => Float)
   mediumCoalPrice!: number;
 
   @Field((_type) => Float)
-  smallCoal!: number;
+  smallCoalAmount!: number;
 
   @Field((_type) => Float)
   smallCoalPrice!: number;
@@ -104,19 +105,19 @@ class CoalDepot {
   landline!: string;
 
   @Field((_type) => Float)
-  thickCoal!: number;
+  thickCoalAmount!: number;
 
   @Field((_type) => Float)
   thickCoalPrice!: number;
 
   @Field((_type) => Float)
-  mediumCoal!: number;
+  mediumCoalAmount!: number;
 
   @Field((_type) => Float)
   mediumCoalPrice!: number;
 
   @Field((_type) => Float)
-  smallCoal!: number;
+  smallCoalAmount!: number;
 
   @Field((_type) => Float)
   smallCoalPrice!: number;
@@ -145,11 +146,11 @@ export class CoalDepotResolver {
         coalDepotName: input.coalDepotName,
         mobilePhone: input.mobilePhone,
         landline: input.landline,
-        smallCoal: input.smallCoal,
+        mediumCoalAmount: input.mediumCoalAmount,
+        thickCoalAmount: input.thickCoalAmount,
+        smallCoalAmount: input.smallCoalAmount,
         smallCoalPrice: input.smallCoalPrice,
-        mediumCoal: input.mediumCoal,
         mediumCoalPrice: input.mediumCoalPrice,
-        thickCoal: input.thickCoal,
         thickCoalPrice: input.thickCoalPrice,
       },
     });

@@ -11,13 +11,13 @@ type CoalDepot {
   landline: String!
   latitude: Float!
   longitude: Float!
-  mediumCoal: Float!
+  mediumCoalAmount: Float!
   mediumCoalPrice: Float!
   mobilePhone: String!
   publicId: String!
-  smallCoal: Float!
+  smallCoalAmount: Float!
   smallCoalPrice: Float!
-  thickCoal: Float!
+  thickCoalAmount: Float!
   thickCoalPrice: Float!
   userId: String!
 }
@@ -28,12 +28,12 @@ input CoalDepotInput {
   coordinates: CoordinatesInput!
   image: String!
   landline: String!
-  mediumCoal: Float!
+  mediumCoalAmount: Float!
   mediumCoalPrice: Float!
   mobilePhone: String!
-  smallCoal: Float!
+  smallCoalAmount: Float!
   smallCoalPrice: Float!
-  thickCoal: Float!
+  thickCoalAmount: Float!
   thickCoalPrice: Float!
 }
 

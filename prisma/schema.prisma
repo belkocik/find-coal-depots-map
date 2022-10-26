@@ -21,9 +21,9 @@ model CoalDepot {
   coalDepotName String
   mobilePhone String
   landline String
-  thickCoal Float
-  mediumCoal Float
-  smallCoal Float
+  thickCoalAmount Float
+  mediumCoalAmount Float
+  smallCoalAmount Float
   thickCoalPrice Float
   mediumCoalPrice Float
   smallCoalPrice Float

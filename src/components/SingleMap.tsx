@@ -44,7 +44,11 @@ const SingleMap = ({ coalDepot }: IProps) => {
           offset={[-15, -15]}
         >
           <button>
-            <img src="/coal-icon-logo.png" alt="selected coal depot" />
+            <img
+              src="/coal-icon-logo.png"
+              alt="selected coal depot"
+              className="w-12 h-12"
+            />
           </button>
         </Marker>
       </MapboxMap>

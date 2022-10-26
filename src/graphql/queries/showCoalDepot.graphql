@@ -9,11 +9,11 @@ query ShowCoalDepot($id: String!) {
     landline
     latitude
     longitude
-    thickCoal
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
     thickCoalPrice
-    mediumCoal
     mediumCoalPrice
-    smallCoal
     smallCoalPrice
   }
 }

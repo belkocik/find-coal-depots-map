@@ -24,13 +24,13 @@ export type CoalDepot = {
   landline: Scalars['String'];
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
-  mediumCoal: Scalars['Float'];
+  mediumCoalAmount: Scalars['Float'];
   mediumCoalPrice: Scalars['Float'];
   mobilePhone: Scalars['String'];
   publicId: Scalars['String'];
-  smallCoal: Scalars['Float'];
+  smallCoalAmount: Scalars['Float'];
   smallCoalPrice: Scalars['Float'];
-  thickCoal: Scalars['Float'];
+  thickCoalAmount: Scalars['Float'];
   thickCoalPrice: Scalars['Float'];
   userId: Scalars['String'];
 };
@@ -41,12 +41,12 @@ export type CoalDepotInput = {
   coordinates: CoordinatesInput;
   image: Scalars['String'];
   landline: Scalars['String'];
-  mediumCoal: Scalars['Float'];
+  mediumCoalAmount: Scalars['Float'];
   mediumCoalPrice: Scalars['Float'];
   mobilePhone: Scalars['String'];
-  smallCoal: Scalars['Float'];
+  smallCoalAmount: Scalars['Float'];
   smallCoalPrice: Scalars['Float'];
-  thickCoal: Scalars['Float'];
+  thickCoalAmount: Scalars['Float'];
   thickCoalPrice: Scalars['Float'];
 };
 
@@ -100,7 +100,7 @@ export type ShowCoalDepotQueryVariables = Exact<{
 }>;
 
 
-export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoal: number, thickCoalPrice: number, mediumCoal: number, mediumCoalPrice: number, smallCoal: number, smallCoalPrice: number } | null };
+export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
 
 
 export const CreateCoalDepotDocument = gql`
@@ -181,11 +181,11 @@ export const ShowCoalDepotDocument = gql`
     landline
     latitude
     longitude
-    thickCoal
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
     thickCoalPrice
-    mediumCoal
     mediumCoalPrice
-    smallCoal
     smallCoalPrice
   }
 }

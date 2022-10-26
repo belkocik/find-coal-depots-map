@@ -68,38 +68,39 @@ const CoalDepotData = ({ id }: { id: string }) => {
             <span className="text-span">Numer stacjonarny: </span>
             {coalDepot.landline === "" ? "❌" : coalDepot.landline}
           </h3>
-          {/* <h3>
-            <span className="text-span">
-              Ilość opału dostepnęgo na składzie:{" "}
-            </span>
-            {coalDepot.coalDescAndAmount}
-          </h3> */}
-          <table className="border-separate border border-slate-500 w-full text-center">
-            <thead>
+
+          <table className="mt-2 border-separate  border border-slate-500 w-full text-center rounded-lg ">
+            <thead className="bg-table1">
               <tr>
                 <th className="border border-slate-600 ">Rodzaj węgla</th>
                 <th className="border border-slate-600 ">Dostępna ilość</th>
-                <th className="border border-slate-600 ">Cena [zł/tony]</th>
+                <th className="border border-slate-600 ">Cena [zł/tona]</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-table2">
               <tr>
                 <td className="border border-slate-700 ">
                   Węgiel kostka/orzech/kęsy
                 </td>
-                <td className="border border-slate-700 ">2 tony</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.thickCoalAmount}t
+                </td>
                 <td className="border border-slate-700 ">3500</td>
               </tr>
               <tr>
                 <td className="border border-slate-700 ">
                   Węgiel grysik/groszek/ekogroszek
                 </td>
-                <td className="border border-slate-700 ">2 tony</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.mediumCoalAmount}t
+                </td>
                 <td className="border border-slate-700 ">3000</td>
               </tr>
               <tr>
                 <td className="border border-slate-700 ">Węgiel miał</td>
-                <td className="border border-slate-700 ">2 tony</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.smallCoalAmount}t
+                </td>
                 <td className="border border-slate-700 ">2500</td>
               </tr>
             </tbody>

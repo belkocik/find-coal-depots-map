@@ -39,9 +39,9 @@ interface IFormData {
   coalDepotName: string;
   mobilePhone: string;
   landline: string;
-  thickCoal: string;
-  mediumCoal: string;
-  smallCoal: string;
+  thickCoalAmount: string;
+  mediumCoalAmount: string;
+  smallCoalAmount: string;
   thickCoalPrice: string;
   mediumCoalPrice: string;
   smallCoalPrice: string;
@@ -85,11 +85,11 @@ const CoalDepotForm = ({}: IProps) => {
             coalDepotName: data.coalDepotName,
             landline: data.landline,
             mobilePhone: data.mobilePhone,
-            smallCoal: parseInt(data.smallCoal, 10),
+            smallCoalAmount: parseInt(data.smallCoalAmount, 10),
+            mediumCoalAmount: parseInt(data.mediumCoalAmount, 10),
+            thickCoalAmount: parseInt(data.thickCoalAmount, 10),
             smallCoalPrice: parseInt(data.smallCoalPrice, 10),
-            mediumCoal: parseInt(data.mediumCoal, 10),
             mediumCoalPrice: parseInt(data.mediumCoalPrice, 10),
-            thickCoal: parseInt(data.thickCoal, 10),
             thickCoalPrice: parseInt(data.thickCoalPrice, 10),
           },
         },
@@ -248,13 +248,13 @@ const CoalDepotForm = ({}: IProps) => {
           </h2>
           <div className="flex flex-col w-full md:flex-row justify-center mt-2 md:gap-6 text-center">
             <div className="mt-2 md:mt-4">
-              <label htmlFor="thickCoal" className="block font-semibold">
+              <label htmlFor="thickCoalAmount" className="block font-semibold">
                 Węgiel kostka/orzech/kęsy [t]
               </label>
               <input
                 type="number"
-                id="thickCoal"
-                name="thickCoal"
+                id="thickCoalAmount"
+                name="thickCoalAmount"
                 placeholder="10"
                 className="p-2  w-20 md:w-60"
                 ref={register({
@@ -269,8 +269,10 @@ const CoalDepotForm = ({}: IProps) => {
                   },
                 })}
               />
-              {errors.thickCoal ? (
-                <p className="text-red-600">▲ {errors.thickCoal.message} ▲</p>
+              {errors.thickCoalAmount ? (
+                <p className="text-red-600">
+                  ▲ {errors.thickCoalAmount.message} ▲
+                </p>
               ) : null}
             </div>
 
@@ -306,13 +308,16 @@ const CoalDepotForm = ({}: IProps) => {
 
           <div className="flex flex-col w-full md:flex-row justify-center mt-6 md:gap-6 text-center">
             <div className="mt-2 md:mt-4 ">
-              <label htmlFor="mediumCoal" className="block font-semibold ">
+              <label
+                htmlFor="mediumCoalAmount"
+                className="block font-semibold "
+              >
                 Węgiel grysik/groszek/ekogroszek
               </label>
               <input
                 type="number"
-                id="mediumCoal"
-                name="mediumCoal"
+                id="mediumCoalAmount"
+                name="mediumCoalAmount"
                 placeholder="10"
                 className="p-2 w-20 md:w-60"
                 ref={register({
@@ -327,8 +332,10 @@ const CoalDepotForm = ({}: IProps) => {
                   },
                 })}
               />
-              {errors.mediumCoal ? (
-                <p className="text-red-600">▲ {errors.mediumCoal.message} ▲</p>
+              {errors.mediumCoalAmount ? (
+                <p className="text-red-600">
+                  ▲ {errors.mediumCoalAmount.message} ▲
+                </p>
               ) : null}
             </div>
 
@@ -363,13 +370,13 @@ const CoalDepotForm = ({}: IProps) => {
           </div>
           <div className="flex flex-col w-full md:flex-row justify-center mt-6 md:gap-6 text-center">
             <div className="md:mt-4">
-              <label htmlFor="smallCoal" className="block font-semibold">
+              <label htmlFor="smallCoalAmount" className="block font-semibold">
                 Węgiel miał
               </label>
               <input
                 type="number"
-                id="smallCoal"
-                name="smallCoal"
+                id="smallCoalAmount"
+                name="smallCoalAmount"
                 placeholder="10"
                 className="p-2 w-20 md:w-60"
                 ref={register({
@@ -384,8 +391,10 @@ const CoalDepotForm = ({}: IProps) => {
                   },
                 })}
               />
-              {errors.smallCoal ? (
-                <p className="text-red-600">▲ {errors.smallCoal.message} ▲</p>
+              {errors.smallCoalAmount ? (
+                <p className="text-red-600">
+                  ▲ {errors.smallCoalAmount.message} ▲
+                </p>
               ) : null}
             </div>
             <div className="md:mt-4">
