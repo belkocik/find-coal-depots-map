@@ -39,12 +39,12 @@ interface IFormData {
   coalDepotName: string;
   mobilePhone: string;
   landline: string;
-  thickCoal: number;
-  mediumCoal: number;
-  smallCoal: number;
-  thickCoalPrice: number;
-  mediumCoalPrice: number;
-  smallCoalPrice: number;
+  thickCoal: string;
+  mediumCoal: string;
+  smallCoal: string;
+  thickCoalPrice: string;
+  mediumCoalPrice: string;
+  smallCoalPrice: string;
   image: FileList;
 }
 
@@ -67,6 +67,7 @@ const CoalDepotForm = ({}: IProps) => {
 
   const [createSignatureMutation] = useCreateImageSignatureMutation();
   const [createCoalDepotMutation] = useCreateCoalDepotMutation();
+
   const handleCreate = async (data: IFormData) => {
     const { data: signatureData } = await createSignatureMutation();
     if (signatureData) {
@@ -82,9 +83,14 @@ const CoalDepotForm = ({}: IProps) => {
               longitude: data.longitude,
             },
             coalDepotName: data.coalDepotName,
-            // coalDescAndAmount: data.coalDescAndAmount,
             landline: data.landline,
             mobilePhone: data.mobilePhone,
+            smallCoal: parseInt(data.smallCoal, 10),
+            smallCoalPrice: parseInt(data.smallCoalPrice, 10),
+            mediumCoal: parseInt(data.mediumCoal, 10),
+            mediumCoalPrice: parseInt(data.mediumCoalPrice, 10),
+            thickCoal: parseInt(data.thickCoal, 10),
+            thickCoalPrice: parseInt(data.thickCoalPrice, 10),
           },
         },
       });
@@ -108,11 +114,7 @@ const CoalDepotForm = ({}: IProps) => {
   };
 
   return (
-    <form
-      action=""
-      className="mx-auto max-w-2xl py-4"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className="mx-auto max-w-2xl py-4" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-xl font-semibold">Dodaj nowy skład węgla/opału</h1>
 
       <div className="mt-4">

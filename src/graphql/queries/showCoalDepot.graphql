@@ -7,8 +7,13 @@ query ShowCoalDepot($id: String!) {
     coalDepotName
     mobilePhone
     landline
-    coalDescAndAmount
     latitude
     longitude
+    thickCoal
+    thickCoalPrice
+    mediumCoal
+    mediumCoalPrice
+    smallCoal
+    smallCoalPrice
   }
 }

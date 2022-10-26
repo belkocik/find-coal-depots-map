@@ -68,12 +68,12 @@ const CoalDepotData = ({ id }: { id: string }) => {
             <span className="text-span">Numer stacjonarny: </span>
             {coalDepot.landline === "" ? "❌" : coalDepot.landline}
           </h3>
-          <h3>
+          {/* <h3>
             <span className="text-span">
               Ilość opału dostepnęgo na składzie:{" "}
             </span>
             {coalDepot.coalDescAndAmount}
-          </h3>
+          </h3> */}
           <table className="border-separate border border-slate-500 w-full text-center">
             <thead>
               <tr>

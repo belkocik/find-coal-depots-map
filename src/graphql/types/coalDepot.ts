@@ -49,8 +49,23 @@ class CoalDepotInput {
   @Field((_type) => String)
   landline!: string;
 
-  @Field((_type) => String)
-  coalDescAndAmount!: string;
+  @Field((_type) => Float)
+  thickCoal!: number;
+
+  @Field((_type) => Float)
+  thickCoalPrice!: number;
+
+  @Field((_type) => Float)
+  mediumCoal!: number;
+
+  @Field((_type) => Float)
+  mediumCoalPrice!: number;
+
+  @Field((_type) => Float)
+  smallCoal!: number;
+
+  @Field((_type) => Float)
+  smallCoalPrice!: number;
 }
 
 @ObjectType()
@@ -88,8 +103,23 @@ class CoalDepot {
   @Field((_type) => String)
   landline!: string;
 
-  @Field((_type) => String)
-  coalDescAndAmount!: string;
+  @Field((_type) => Float)
+  thickCoal!: number;
+
+  @Field((_type) => Float)
+  thickCoalPrice!: number;
+
+  @Field((_type) => Float)
+  mediumCoal!: number;
+
+  @Field((_type) => Float)
+  mediumCoalPrice!: number;
+
+  @Field((_type) => Float)
+  smallCoal!: number;
+
+  @Field((_type) => Float)
+  smallCoalPrice!: number;
 }
 
 @Resolver()
@@ -115,7 +145,12 @@ export class CoalDepotResolver {
         coalDepotName: input.coalDepotName,
         mobilePhone: input.mobilePhone,
         landline: input.landline,
-        coalDescAndAmount: input.coalDescAndAmount,
+        smallCoal: input.smallCoal,
+        smallCoalPrice: input.smallCoalPrice,
+        mediumCoal: input.mediumCoal,
+        mediumCoalPrice: input.mediumCoalPrice,
+        thickCoal: input.thickCoal,
+        thickCoalPrice: input.thickCoalPrice,
       },
     });
   }

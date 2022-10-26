@@ -19,25 +19,35 @@ export type CoalDepot = {
   __typename?: 'CoalDepot';
   address: Scalars['String'];
   coalDepotName: Scalars['String'];
-  coalDescAndAmount: Scalars['String'];
   id: Scalars['ID'];
   image: Scalars['String'];
   landline: Scalars['String'];
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
+  mediumCoal: Scalars['Float'];
+  mediumCoalPrice: Scalars['Float'];
   mobilePhone: Scalars['String'];
   publicId: Scalars['String'];
+  smallCoal: Scalars['Float'];
+  smallCoalPrice: Scalars['Float'];
+  thickCoal: Scalars['Float'];
+  thickCoalPrice: Scalars['Float'];
   userId: Scalars['String'];
 };
 
 export type CoalDepotInput = {
   address: Scalars['String'];
   coalDepotName: Scalars['String'];
-  coalDescAndAmount: Scalars['String'];
   coordinates: CoordinatesInput;
   image: Scalars['String'];
   landline: Scalars['String'];
+  mediumCoal: Scalars['Float'];
+  mediumCoalPrice: Scalars['Float'];
   mobilePhone: Scalars['String'];
+  smallCoal: Scalars['Float'];
+  smallCoalPrice: Scalars['Float'];
+  thickCoal: Scalars['Float'];
+  thickCoalPrice: Scalars['Float'];
 };
 
 export type CoordinatesInput = {
@@ -90,7 +100,7 @@ export type ShowCoalDepotQueryVariables = Exact<{
 }>;
 
 
-export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, coalDescAndAmount: string, latitude: number, longitude: number } | null };
+export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoal: number, thickCoalPrice: number, mediumCoal: number, mediumCoalPrice: number, smallCoal: number, smallCoalPrice: number } | null };
 
 
 export const CreateCoalDepotDocument = gql`
@@ -169,9 +179,14 @@ export const ShowCoalDepotDocument = gql`
     coalDepotName
     mobilePhone
     landline
-    coalDescAndAmount
     latitude
     longitude
+    thickCoal
+    thickCoalPrice
+    mediumCoal
+    mediumCoalPrice
+    smallCoal
+    smallCoalPrice
   }
 }
     `;
