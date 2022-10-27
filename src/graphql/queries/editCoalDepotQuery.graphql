@@ -1,0 +1,19 @@
+query EditCoalDepot($id: String!) {
+  coalDepot(id: $id) {
+    id
+    userId
+    address
+    publicId
+    coalDepotName
+    mobilePhone
+    landline
+    latitude
+    longitude
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
+    thickCoalPrice
+    mediumCoalPrice
+    smallCoalPrice
+  }
+}

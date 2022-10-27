@@ -93,7 +93,7 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
           >
             <div
               onMouseEnter={() => setOver(coalDepot.id)}
-              onMouseOut={() => setOver(null)}
+              onMouseLeave={() => setOver(null)}
             >
               <button type="button" onClick={() => setSelected(coalDepot)}>
                 <img

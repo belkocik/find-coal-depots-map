@@ -10,6 +10,8 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useRouter } from "next/router";
 import { useShowCoalDepotQuery } from "generated/graphql";
 import SingleMap from "src/components/SingleMap";
+import CoalDepotNav from "src/components/CoalDepotNav";
+import { CoalDepot } from "../../../generated/graphql";
 
 const ShowCoalDepot = () => {
   const {
@@ -48,6 +50,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
         className="sm:w-full flex flex-col w-full items-center md:w-1/2 p-4 overflow-y "
         style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}
       >
+        <CoalDepotNav coalDepot={coalDepot} />
         <h1 className="text-3xl my-2 font-bold text">{coalDepot.address}</h1>
         <AdvancedImage
           cldImg={myImage}
@@ -55,7 +58,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
           className="rounded-lg"
           style={{ width: "900px", height: `${(9 / 16) * 900}px` }}
         />
-        <div className="text-xl font-semibold mt-2">
+        <div className="text-xl font-semibold mt-2 ">
           <h2>
             <span className="text-span">Nazwa składu: </span>{" "}
             {coalDepot.coalDepotName}

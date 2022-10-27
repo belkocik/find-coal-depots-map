@@ -107,6 +107,13 @@ export type CreateImageSignatureMutationVariables = Exact<{ [key: string]: never
 
 export type CreateImageSignatureMutation = { __typename?: 'Mutation', createImageSignature: { __typename?: 'ImageSignature', signature: string, timestamp: number } };
 
+export type EditCoalDepotQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type EditCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
+
 export type GetCoalDepotsFromBoundsQueryVariables = Exact<{
   bounds: BoundsInput;
 }>;
@@ -188,6 +195,55 @@ export function useCreateImageSignatureMutation(baseOptions?: Apollo.MutationHoo
 export type CreateImageSignatureMutationHookResult = ReturnType<typeof useCreateImageSignatureMutation>;
 export type CreateImageSignatureMutationResult = Apollo.MutationResult<CreateImageSignatureMutation>;
 export type CreateImageSignatureMutationOptions = Apollo.BaseMutationOptions<CreateImageSignatureMutation, CreateImageSignatureMutationVariables>;
+export const EditCoalDepotDocument = gql`
+    query EditCoalDepot($id: String!) {
+  coalDepot(id: $id) {
+    id
+    userId
+    address
+    publicId
+    coalDepotName
+    mobilePhone
+    landline
+    latitude
+    longitude
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
+    thickCoalPrice
+    mediumCoalPrice
+    smallCoalPrice
+  }
+}
+    `;
+
+/**
+ * __useEditCoalDepotQuery__
+ *
+ * To run a query within a React component, call `useEditCoalDepotQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEditCoalDepotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEditCoalDepotQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEditCoalDepotQuery(baseOptions: Apollo.QueryHookOptions<EditCoalDepotQuery, EditCoalDepotQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EditCoalDepotQuery, EditCoalDepotQueryVariables>(EditCoalDepotDocument, options);
+      }
+export function useEditCoalDepotLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EditCoalDepotQuery, EditCoalDepotQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EditCoalDepotQuery, EditCoalDepotQueryVariables>(EditCoalDepotDocument, options);
+        }
+export type EditCoalDepotQueryHookResult = ReturnType<typeof useEditCoalDepotQuery>;
+export type EditCoalDepotLazyQueryHookResult = ReturnType<typeof useEditCoalDepotLazyQuery>;
+export type EditCoalDepotQueryResult = Apollo.QueryResult<EditCoalDepotQuery, EditCoalDepotQueryVariables>;
 export const GetCoalDepotsFromBoundsDocument = gql`
     query getCoalDepotsFromBounds($bounds: BoundsInput!) {
   coalDepots(bounds: $bounds) {
