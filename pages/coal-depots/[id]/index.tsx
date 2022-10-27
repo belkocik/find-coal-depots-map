@@ -3,14 +3,13 @@ import {
   AdvancedImage,
   lazyload,
   responsive,
-  accessibility,
   placeholder,
 } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { useRouter } from "next/router";
 import { useShowCoalDepotQuery } from "generated/graphql";
 import SingleMap from "src/components/SingleMap";
-import { fill, scale } from "@cloudinary/url-gen/actions/resize";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 const ShowCoalDepot = () => {
   const {
@@ -68,7 +67,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
             {coalDepot.landline === "" ? "❌" : coalDepot.landline}
           </h3>
 
-          <table className="mt-2 border-separate  border border-slate-500 text-center rounded-lg text-sm md:text-lg w-full md:w-[900px]">
+          <table className="mt-2 border-separate  border border-slate-500 text-center rounded-lg text-sm md:text-lg w-full xl:w-[900px]">
             <thead className="bg-tableHead">
               <tr>
                 <th className="border border-slate-600 ">Rodzaj węgla</th>

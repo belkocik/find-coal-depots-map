@@ -34,9 +34,10 @@
     "react-firebaseui": "^6.0.0",
     "react-hook-form": "^6.15.4",
     "react-hot-toast": "^2.4.0",
-    "react-map-gl": "^7.0.19",
+    "react-map-gl": "5.2.10",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
+    "use-debounce": "^8.0.4",
     "use-google-maps-script": "^0.1.2",
     "use-places-autocomplete": "^4.0.0"
   },
