@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input BoundsInput {
+  ne: CoordinatesInput!
+  sw: CoordinatesInput!
+}
+
 type CoalDepot {
   address: String!
   coalDepotName: String!
@@ -55,5 +60,6 @@ type Mutation {
 
 type Query {
   coalDepot(id: String!): CoalDepot
+  coalDepots(bounds: BoundsInput!): [CoalDepot!]!
   hello: String!
 }

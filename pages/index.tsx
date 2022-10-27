@@ -1,10 +1,26 @@
+import { useGetCoalDepotsFromBoundsQuery } from "generated/graphql";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Mapbox from "src/components/Map";
 import { useLocalState } from "src/hooks/useLocalState";
 import { useDebounce } from "use-debounce";
+import { useLastData } from "src/hooks/useLastData";
 
 type BoundsArray = [[number, number], [number, number]];
+
+const parseBounds = (boundsString: string) => {
+  const bounds = JSON.parse(boundsString) as BoundsArray;
+  return {
+    sw: {
+      latitude: bounds[0][1],
+      longitude: bounds[0][0],
+    },
+    ne: {
+      latitude: bounds[1][1],
+      longitude: bounds[1][0],
+    },
+  };
+};
 
 const Home: NextPage = () => {
   const [dataBounds, setDataBounds] = useLocalState<string>(
@@ -13,6 +29,17 @@ const Home: NextPage = () => {
   );
 
   const [debouncedDataBounds] = useDebounce(dataBounds, 400);
+
+  const { data, error } = useGetCoalDepotsFromBoundsQuery({
+    variables: {
+      bounds: parseBounds(debouncedDataBounds),
+    },
+  });
+  const lastData = useLastData(data);
+
+  if (error) return <p>Wystąpił błąd podczas ładowania.</p>;
+
+  console.log(lastData);
 
   return (
     <div className="max-h-screen w-full ">

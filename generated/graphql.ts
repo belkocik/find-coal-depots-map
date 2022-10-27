@@ -15,6 +15,11 @@ export type Scalars = {
   Float: number;
 };
 
+export type BoundsInput = {
+  ne: CoordinatesInput;
+  sw: CoordinatesInput;
+};
+
 export type CoalDepot = {
   __typename?: 'CoalDepot';
   address: Scalars['String'];
@@ -76,12 +81,18 @@ export type MutationCreateCoalDepotArgs = {
 export type Query = {
   __typename?: 'Query';
   coalDepot?: Maybe<CoalDepot>;
+  coalDepots: Array<CoalDepot>;
   hello: Scalars['String'];
 };
 
 
 export type QueryCoalDepotArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryCoalDepotsArgs = {
+  bounds: BoundsInput;
 };
 
 export type CreateCoalDepotMutationVariables = Exact<{
@@ -95,6 +106,13 @@ export type CreateImageSignatureMutationVariables = Exact<{ [key: string]: never
 
 
 export type CreateImageSignatureMutation = { __typename?: 'Mutation', createImageSignature: { __typename?: 'ImageSignature', signature: string, timestamp: number } };
+
+export type GetCoalDepotsFromBoundsQueryVariables = Exact<{
+  bounds: BoundsInput;
+}>;
+
+
+export type GetCoalDepotsFromBoundsQuery = { __typename?: 'Query', coalDepots: Array<{ __typename?: 'CoalDepot', id: string, latitude: number, longitude: number, address: string, publicId: string, coalDepotName: string }> };
 
 export type ShowCoalDepotQueryVariables = Exact<{
   id: Scalars['String'];
@@ -170,6 +188,46 @@ export function useCreateImageSignatureMutation(baseOptions?: Apollo.MutationHoo
 export type CreateImageSignatureMutationHookResult = ReturnType<typeof useCreateImageSignatureMutation>;
 export type CreateImageSignatureMutationResult = Apollo.MutationResult<CreateImageSignatureMutation>;
 export type CreateImageSignatureMutationOptions = Apollo.BaseMutationOptions<CreateImageSignatureMutation, CreateImageSignatureMutationVariables>;
+export const GetCoalDepotsFromBoundsDocument = gql`
+    query getCoalDepotsFromBounds($bounds: BoundsInput!) {
+  coalDepots(bounds: $bounds) {
+    id
+    latitude
+    longitude
+    address
+    publicId
+    coalDepotName
+  }
+}
+    `;
+
+/**
+ * __useGetCoalDepotsFromBoundsQuery__
+ *
+ * To run a query within a React component, call `useGetCoalDepotsFromBoundsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCoalDepotsFromBoundsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCoalDepotsFromBoundsQuery({
+ *   variables: {
+ *      bounds: // value for 'bounds'
+ *   },
+ * });
+ */
+export function useGetCoalDepotsFromBoundsQuery(baseOptions: Apollo.QueryHookOptions<GetCoalDepotsFromBoundsQuery, GetCoalDepotsFromBoundsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCoalDepotsFromBoundsQuery, GetCoalDepotsFromBoundsQueryVariables>(GetCoalDepotsFromBoundsDocument, options);
+      }
+export function useGetCoalDepotsFromBoundsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCoalDepotsFromBoundsQuery, GetCoalDepotsFromBoundsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCoalDepotsFromBoundsQuery, GetCoalDepotsFromBoundsQueryVariables>(GetCoalDepotsFromBoundsDocument, options);
+        }
+export type GetCoalDepotsFromBoundsQueryHookResult = ReturnType<typeof useGetCoalDepotsFromBoundsQuery>;
+export type GetCoalDepotsFromBoundsLazyQueryHookResult = ReturnType<typeof useGetCoalDepotsFromBoundsLazyQuery>;
+export type GetCoalDepotsFromBoundsQueryResult = Apollo.QueryResult<GetCoalDepotsFromBoundsQuery, GetCoalDepotsFromBoundsQueryVariables>;
 export const ShowCoalDepotDocument = gql`
     query ShowCoalDepot($id: String!) {
   coalDepot(id: $id) {

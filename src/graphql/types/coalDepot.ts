@@ -30,6 +30,15 @@ class CoordinatesInput {
 }
 
 @InputType()
+class BoundsInput {
+  @Field((_type) => CoordinatesInput)
+  sw!: CoordinatesInput;
+
+  @Field((_type) => CoordinatesInput)
+  ne!: CoordinatesInput;
+}
+
+@InputType()
 class CoalDepotInput {
   @Field((_type) => String)
   address!: string;
@@ -144,6 +153,17 @@ export class CoalDepotResolver {
   @Query((_returns) => CoalDepot, { nullable: true })
   async coalDepot(@Arg("id") id: string, @Ctx() ctx: Context) {
     return ctx.prisma.coalDepot.findFirst({ where: { id: parseInt(id, 10) } });
+  }
+
+  @Query((_returns) => [CoalDepot], { nullable: false })
+  async coalDepots(@Arg("bounds") bounds: BoundsInput, @Ctx() ctx: Context) {
+    return ctx.prisma.coalDepot.findMany({
+      where: {
+        latitude: { gte: bounds.sw.latitude, lte: bounds.ne.latitude },
+        longitude: { gte: bounds.sw.longitude, lte: bounds.ne.longitude },
+      },
+      take: 50,
+    });
   }
 
   @Authorized()

@@ -1,0 +1,10 @@
+query getCoalDepotsFromBounds($bounds: BoundsInput!) {
+  coalDepots(bounds: $bounds) {
+    id
+    latitude
+    longitude
+    address
+    publicId
+    coalDepotName
+  }
+}
