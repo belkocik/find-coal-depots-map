@@ -33,7 +33,7 @@ const SingleMap = ({ coalDepot, nearby }: IProps) => {
         scrollZoom={false}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
       >
-        <div className="absolute top-0 left-0 p-4 ">
+        <div className="absolute top-0 left-0 p-4 z-10">
           <NavigationControl showCompass={false} />
         </div>
         <Marker
@@ -62,7 +62,7 @@ const SingleMap = ({ coalDepot, nearby }: IProps) => {
             <Link href={`/coal-depots/${nearCoalDepot.id}`}>
               <a>
                 <img
-                  src="/coal-icon-logo-white.png"
+                  src="/coal-icon-logo-black.png"
                   alt="nearby coal depot"
                   className="w-10"
                 />

@@ -5,6 +5,7 @@ import Mapbox from "src/components/Map";
 import { useLocalState } from "src/hooks/useLocalState";
 import { useDebounce } from "use-debounce";
 import { useLastData } from "src/hooks/useLastData";
+import CoalDepotsList from "src/components/CoalDepotsList";
 
 type BoundsArray = [[number, number], [number, number]];
 
@@ -39,8 +40,6 @@ const Home: NextPage = () => {
 
   if (error) return <p>Wystąpił błąd podczas ładowania.</p>;
 
-  console.log(lastData);
-
   return (
     <div className="max-h-screen w-full ">
       <Head>
@@ -48,10 +47,18 @@ const Home: NextPage = () => {
         <meta name="description" content="Find coal depots in Poland" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex">
-        <div className="w-1/2 pb-4 p-2">depots list</div>
+      <div className="flex ">
+        <div
+          className="w-1/2 pb-4 p-2"
+          style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}
+        >
+          <CoalDepotsList coalDepots={lastData ? lastData.coalDepots : []} />
+        </div>
         <div className="w-1/2">
-          <Mapbox setDataBounds={setDataBounds} />
+          <Mapbox
+            setDataBounds={setDataBounds}
+            coalDepots={lastData ? lastData.coalDepots : []}
+          />
         </div>
       </div>
     </div>

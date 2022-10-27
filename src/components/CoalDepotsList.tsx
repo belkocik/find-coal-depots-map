@@ -1,0 +1,55 @@
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, lazyload, responsive } from "@cloudinary/react";
+import Link from "next/link";
+import React from "react";
+
+interface CoalDepot {
+  id: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  publicId: string;
+  coalDepotName: string;
+}
+
+interface IProps {
+  coalDepots: CoalDepot[];
+}
+
+const CoalDepotsList = ({ coalDepots }: IProps) => {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    },
+  });
+
+  return (
+    <>
+      {coalDepots.map((coalDepot) => (
+        <Link href={`/coal-depots/${coalDepot.id}`} key={coalDepot.id}>
+          <div className="px-1 md:px-6 pt-4 cursor-pointer flex flex-col ">
+            <div className="bg-nav flex flex-wrap p-1 md:p-4 rounded-lg">
+              <div className="sm:w-full md:w-1/2  ">
+                <AdvancedImage
+                  cldImg={cld.image(coalDepot.publicId)}
+                  plugins={[lazyload(), responsive()]}
+                  className="rounded-lg w-80 h-56"
+                />
+              </div>
+              <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 text-center md:text-left">
+                <h2 className="text-sm md:text-lg font-bold ">
+                  {coalDepot.address}
+                </h2>
+                <h3 className="text-sm md:text-mdfont-semibold">
+                  {coalDepot.coalDepotName}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </>
+  );
+};
+
+export default CoalDepotsList;

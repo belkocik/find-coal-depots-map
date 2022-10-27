@@ -25,3 +25,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
+
+.mapboxgl-popup-close-button {
+  padding: 5px;
+}

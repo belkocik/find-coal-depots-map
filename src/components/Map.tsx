@@ -1,18 +1,44 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import ReactMapGL, { ViewState } from "react-map-gl";
+import ReactMapGL, { ViewState, Marker, Popup } from "react-map-gl";
 import { useLocalState } from "src/hooks/useLocalState";
+import {
+  AdvancedImage,
+  lazyload,
+  responsive,
+  placeholder,
+} from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import Link from "next/link";
+
+interface CoalDepot {
+  id: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  publicId: string;
+  coalDepotName: string;
+}
 
 interface IProps {
   setDataBounds: (bounds: string) => void;
+  coalDepots: CoalDepot[];
 }
 
-const Mapbox = ({ setDataBounds }: IProps) => {
+const Mapbox = ({ setDataBounds, coalDepots }: IProps) => {
+  const [selected, setSelected] = useState<CoalDepot | null>(null);
   const mapRef = useRef<ReactMapGL | null>(null);
   const [viewport, setViewport] = useLocalState<ViewState>("viewport", {
     latitude: 51.759445,
     longitude: 19.457216,
     zoom: 8,
+  });
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    },
   });
 
   return (
@@ -39,7 +65,50 @@ const Mapbox = ({ setDataBounds }: IProps) => {
             setDataBounds(JSON.stringify(bounds.toArray()));
           }
         }}
-      ></ReactMapGL>
+      >
+        {coalDepots.map((coalDepot) => (
+          <Marker
+            key={coalDepot.id}
+            latitude={coalDepot.latitude}
+            longitude={coalDepot.longitude}
+            offsetLeft={-15}
+            offsetTop={-15}
+          >
+            <button type="button" onClick={() => setSelected(coalDepot)}>
+              <img
+                src="/coal-icon-logo-black.png"
+                alt="coal depot"
+                className="w-10"
+              />
+            </button>
+          </Marker>
+        ))}
+        {selected ? (
+          <Popup
+            latitude={selected.latitude}
+            longitude={selected.longitude}
+            onClose={() => setSelected(null)}
+            closeOnClick={false}
+          >
+            <div className="text-center flex flex-col items-center">
+              <h3 className="px-4 font-semibold">
+                {selected.address.substring(0, 30)}
+              </h3>
+              <AdvancedImage
+                cldImg={cld.image(selected.publicId)}
+                plugins={[lazyload(), responsive()]}
+                className="rounded-lg w-48 h-40"
+              />
+              <h3 className="font-semibold">{selected.coalDepotName}</h3>
+              <Link href={`/coal-depots/${selected.id}`}>
+                <button className="bg-transparent hover:bg-buttonHover text-black font-semibold hover:text-white  px-2 py-1 border border-button hover:border-transparent rounded">
+                  Zobacz skład opału
+                </button>
+              </Link>
+            </div>
+          </Popup>
+        ) : null}
+      </ReactMapGL>
     </div>
   );
 };

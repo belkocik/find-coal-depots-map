@@ -429,7 +429,7 @@ const CoalDepotForm = ({}: IProps) => {
 
           <div className="mt-4 flex text-center justify-center items-center">
             <button
-              className="bg-nav hover:bg-navHover font-bold py-2 px-6 rounded "
+              className="bg-button hover:bg-buttonHover font-bold py-2 px-6 rounded "
               type="submit"
               disabled={submitting}
             >
