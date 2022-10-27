@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     "[[0,0][0,0]]"
   );
 
-  const [debouncedDataBounds] = useDebounce(dataBounds, 400);
+  const [debouncedDataBounds] = useDebounce(dataBounds, 200);
 
   const { data, error } = useGetCoalDepotsFromBoundsQuery({
     variables: {

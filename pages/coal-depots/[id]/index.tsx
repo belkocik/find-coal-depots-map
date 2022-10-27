@@ -44,7 +44,10 @@ const CoalDepotData = ({ id }: { id: string }) => {
 
   return (
     <div className="sm:block md:flex ">
-      <div className="sm:w-full flex flex-col w-full items-center md:w-1/2 p-4 overflow-y ">
+      <div
+        className="sm:w-full flex flex-col w-full items-center md:w-1/2 p-4 overflow-y "
+        style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}
+      >
         <h1 className="text-3xl my-2 font-bold text">{coalDepot.address}</h1>
         <AdvancedImage
           cldImg={myImage}
@@ -83,7 +86,9 @@ const CoalDepotData = ({ id }: { id: string }) => {
                 <td className="border border-slate-700 ">
                   {coalDepot.thickCoalAmount}t
                 </td>
-                <td className="border border-slate-700 ">3500</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.thickCoalPrice}
+                </td>
               </tr>
               <tr>
                 <td className="border border-slate-700 ">
@@ -92,14 +97,18 @@ const CoalDepotData = ({ id }: { id: string }) => {
                 <td className="border border-slate-700 ">
                   {coalDepot.mediumCoalAmount}t
                 </td>
-                <td className="border border-slate-700 ">3000</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.mediumCoalPrice}
+                </td>
               </tr>
               <tr>
                 <td className="border border-slate-700 ">Węgiel miał</td>
                 <td className="border border-slate-700 ">
                   {coalDepot.smallCoalAmount}t
                 </td>
-                <td className="border border-slate-700 ">2500</td>
+                <td className="border border-slate-700 ">
+                  {coalDepot.smallCoalPrice}
+                </td>
               </tr>
             </tbody>
           </table>

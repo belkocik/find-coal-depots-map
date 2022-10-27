@@ -29,7 +29,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
       {coalDepots.map((coalDepot) => (
         <Link href={`/coal-depots/${coalDepot.id}`} key={coalDepot.id}>
           <div
-            className="px-1 md:px-6 pt-4 cursor-pointer flex flex-col"
+            className="mx-1 md:mx-2 mt-2 cursor-pointer flex flex-col"
             onMouseEnter={() => setHighligtedId(coalDepot.id)}
             onMouseLeave={() => setHighligtedId(null)}
           >

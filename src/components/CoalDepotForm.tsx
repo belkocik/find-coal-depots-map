@@ -5,7 +5,7 @@ import {
 import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
-import SearchBox from "./SearchBox";
+import { SearchBox } from "src/components/SearchBox";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 

@@ -93,4 +93,4 @@ const ReadySearchBox = ({ onSelectAddress, defaultValue }: ISearchBoxProps) => {
   );
 };
 
-export default SearchBox;
+export { SearchBox };

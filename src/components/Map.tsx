@@ -2,15 +2,10 @@ import { useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ReactMapGL, { ViewState, Marker, Popup } from "react-map-gl";
 import { useLocalState } from "src/hooks/useLocalState";
-import {
-  AdvancedImage,
-  lazyload,
-  responsive,
-  placeholder,
-} from "@cloudinary/react";
+import { AdvancedImage, lazyload, responsive } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
-import { fill } from "@cloudinary/url-gen/actions/resize";
 import Link from "next/link";
+import { SearchBox } from "src/components/SearchBox";
 
 interface CoalDepot {
   id: string;
@@ -28,12 +23,13 @@ interface IProps {
 }
 
 const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
+  const [over, setOver] = useState<string | null>(null);
   const [selected, setSelected] = useState<CoalDepot | null>(null);
   const mapRef = useRef<ReactMapGL | null>(null);
   const [viewport, setViewport] = useLocalState<ViewState>("viewport", {
     latitude: 51.759445,
     longitude: 19.457216,
-    zoom: 8,
+    zoom: 10,
   });
 
   const cld = new Cloudinary({
@@ -50,7 +46,7 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
         height="calc(100vh - 64px)"
         mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
-        minZoom={5.5}
+        minZoom={6.5}
         maxZoom={15}
         ref={(instance) => (mapRef.current = instance)}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
@@ -67,6 +63,25 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
           }
         }}
       >
+        <div className="absolute top-0 w-full z-20 p-4">
+          <SearchBox
+            defaultValue=""
+            onSelectAddress={(_address, latitude, longitude) => {
+              if (latitude && longitude) {
+                setViewport((old) => ({
+                  ...old,
+                  latitude,
+                  longitude,
+                  zoom: 12,
+                }));
+                if (mapRef.current) {
+                  const bounds = mapRef.current.getMap().getBounds();
+                  setDataBounds(JSON.stringify(bounds.toArray()));
+                }
+              }
+            }}
+          />
+        </div>
         {coalDepots.map((coalDepot) => (
           <Marker
             key={coalDepot.id}
@@ -76,17 +91,22 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
             offsetTop={-15}
             className={highligtedId === coalDepot.id ? "z-10" : ""}
           >
-            <button type="button" onClick={() => setSelected(coalDepot)}>
-              <img
-                src={
-                  highligtedId === coalDepot.id
-                    ? "/coal-icon-logo.png"
-                    : "/coal-icon-logo-black.png"
-                }
-                alt="coal depot"
-                className="w-10"
-              />
-            </button>
+            <div
+              onMouseEnter={() => setOver(coalDepot.id)}
+              onMouseOut={() => setOver(null)}
+            >
+              <button type="button" onClick={() => setSelected(coalDepot)}>
+                <img
+                  src={
+                    highligtedId === coalDepot.id || coalDepot.id === over
+                      ? "/coal-icon-logo.png"
+                      : "/coal-icon-logo-black.png"
+                  }
+                  alt="coal depot"
+                  className="w-10 z-40"
+                />
+              </button>
+            </div>
           </Marker>
         ))}
         {selected ? (
@@ -95,6 +115,7 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
             longitude={selected.longitude}
             onClose={() => setSelected(null)}
             closeOnClick={false}
+            className="z-30"
           >
             <div className="text-center flex flex-col items-center">
               <h3 className="px-4 font-semibold">
