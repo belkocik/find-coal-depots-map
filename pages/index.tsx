@@ -6,6 +6,7 @@ import { useLocalState } from "src/hooks/useLocalState";
 import { useDebounce } from "use-debounce";
 import { useLastData } from "src/hooks/useLastData";
 import CoalDepotsList from "src/components/CoalDepotsList";
+import { useState } from "react";
 
 type BoundsArray = [[number, number], [number, number]];
 
@@ -24,6 +25,7 @@ const parseBounds = (boundsString: string) => {
 };
 
 const Home: NextPage = () => {
+  const [highligtedId, setHighligtedId] = useState<string | null>(null);
   const [dataBounds, setDataBounds] = useLocalState<string>(
     "bounds",
     "[[0,0][0,0]]"
@@ -52,12 +54,16 @@ const Home: NextPage = () => {
           className="w-1/2 pb-4 p-2"
           style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}
         >
-          <CoalDepotsList coalDepots={lastData ? lastData.coalDepots : []} />
+          <CoalDepotsList
+            coalDepots={lastData ? lastData.coalDepots : []}
+            setHighligtedId={setHighligtedId}
+          />
         </div>
         <div className="w-1/2">
           <Mapbox
             setDataBounds={setDataBounds}
             coalDepots={lastData ? lastData.coalDepots : []}
+            highligtedId={highligtedId}
           />
         </div>
       </div>

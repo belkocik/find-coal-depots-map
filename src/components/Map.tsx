@@ -24,9 +24,10 @@ interface CoalDepot {
 interface IProps {
   setDataBounds: (bounds: string) => void;
   coalDepots: CoalDepot[];
+  highligtedId: string | null;
 }
 
-const Mapbox = ({ setDataBounds, coalDepots }: IProps) => {
+const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
   const [selected, setSelected] = useState<CoalDepot | null>(null);
   const mapRef = useRef<ReactMapGL | null>(null);
   const [viewport, setViewport] = useLocalState<ViewState>("viewport", {
@@ -73,10 +74,15 @@ const Mapbox = ({ setDataBounds, coalDepots }: IProps) => {
             longitude={coalDepot.longitude}
             offsetLeft={-15}
             offsetTop={-15}
+            className={highligtedId === coalDepot.id ? "z-10" : ""}
           >
             <button type="button" onClick={() => setSelected(coalDepot)}>
               <img
-                src="/coal-icon-logo-black.png"
+                src={
+                  highligtedId === coalDepot.id
+                    ? "/coal-icon-logo.png"
+                    : "/coal-icon-logo-black.png"
+                }
                 alt="coal depot"
                 className="w-10"
               />

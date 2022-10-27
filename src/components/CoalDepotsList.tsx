@@ -14,9 +14,10 @@ interface CoalDepot {
 
 interface IProps {
   coalDepots: CoalDepot[];
+  setHighligtedId: (id: string | null) => void;
 }
 
-const CoalDepotsList = ({ coalDepots }: IProps) => {
+const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
   const cld = new Cloudinary({
     cloud: {
       cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -27,7 +28,11 @@ const CoalDepotsList = ({ coalDepots }: IProps) => {
     <>
       {coalDepots.map((coalDepot) => (
         <Link href={`/coal-depots/${coalDepot.id}`} key={coalDepot.id}>
-          <div className="px-1 md:px-6 pt-4 cursor-pointer flex flex-col ">
+          <div
+            className="px-1 md:px-6 pt-4 cursor-pointer flex flex-col"
+            onMouseEnter={() => setHighligtedId(coalDepot.id)}
+            onMouseLeave={() => setHighligtedId(null)}
+          >
             <div className="bg-nav flex flex-wrap p-1 md:p-4 rounded-lg">
               <div className="sm:w-full md:w-1/2  ">
                 <AdvancedImage
