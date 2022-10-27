@@ -169,7 +169,7 @@ const CoalDepotForm = ({}: IProps) => {
             {previewImage ? (
               <img
                 src={previewImage}
-                className="mt-4 object-fill"
+                className="mt-4 object-cover"
                 style={{ width: "100vw", height: `${(9 / 16) * 576}px` }}
               />
             ) : null}

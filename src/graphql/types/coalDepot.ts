@@ -15,7 +15,6 @@ import {
 import { Min, Max } from "class-validator";
 import { getBoundsOfDistance } from "geolib";
 import type { Context, AuthorizedContext } from "src/graphql/context";
-import { initScriptLoader } from "next/script";
 
 @InputType()
 class CoordinatesInput {
@@ -121,6 +120,23 @@ class CoalDepot {
 
   @Field((_type) => Float)
   smallCoalPrice!: number;
+
+  @Field((_type) => [CoalDepot])
+  async nearby(@Ctx() ctx: Context) {
+    const bounds = getBoundsOfDistance(
+      { latitude: this.latitude, longitude: this.longitude },
+      10000
+    );
+
+    return ctx.prisma.coalDepot.findMany({
+      where: {
+        latitude: { gte: bounds[0].latitude, lte: bounds[1].latitude },
+        longitude: { gte: bounds[0].longitude, lte: bounds[1].longitude },
+        id: { not: { equals: this.id } },
+      },
+      take: 25,
+    });
+  }
 }
 
 @Resolver()

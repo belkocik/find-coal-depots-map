@@ -15,5 +15,10 @@ query ShowCoalDepot($id: String!) {
     thickCoalPrice
     mediumCoalPrice
     smallCoalPrice
+    nearby {
+      id
+      latitude
+      longitude
+    }
   }
 }

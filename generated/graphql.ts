@@ -27,6 +27,7 @@ export type CoalDepot = {
   mediumCoalAmount: Scalars['Float'];
   mediumCoalPrice: Scalars['Float'];
   mobilePhone: Scalars['String'];
+  nearby: Array<CoalDepot>;
   publicId: Scalars['String'];
   smallCoalAmount: Scalars['Float'];
   smallCoalPrice: Scalars['Float'];
@@ -100,7 +101,7 @@ export type ShowCoalDepotQueryVariables = Exact<{
 }>;
 
 
-export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
+export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number, nearby: Array<{ __typename?: 'CoalDepot', id: string, latitude: number, longitude: number }> } | null };
 
 
 export const CreateCoalDepotDocument = gql`
@@ -187,6 +188,11 @@ export const ShowCoalDepotDocument = gql`
     thickCoalPrice
     mediumCoalPrice
     smallCoalPrice
+    nearby {
+      id
+      latitude
+      longitude
+    }
   }
 }
     `;

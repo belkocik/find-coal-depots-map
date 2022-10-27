@@ -12,9 +12,10 @@ interface ICoalDepot {
 
 interface IProps {
   coalDepot: ICoalDepot;
+  nearby: ICoalDepot[];
 }
 
-const SingleMap = ({ coalDepot }: IProps) => {
+const SingleMap = ({ coalDepot, nearby }: IProps) => {
   const [viewport, setViewport] = useState<ViewState>({
     latitude: coalDepot.latitude,
     longitude: coalDepot.longitude,
@@ -47,10 +48,29 @@ const SingleMap = ({ coalDepot }: IProps) => {
             <img
               src="/coal-icon-logo.png"
               alt="selected coal depot"
-              className="w-12 h-12"
+              className="w-10"
             />
           </button>
         </Marker>
+
+        {nearby.map((nearCoalDepot) => (
+          <Marker
+            key={nearCoalDepot.id}
+            latitude={nearCoalDepot.latitude}
+            longitude={nearCoalDepot.longitude}
+            offset={[-15, -15]}
+          >
+            <Link href={`/coal-depots/${nearCoalDepot.id}`}>
+              <a>
+                <img
+                  src="/coal-icon-logo-white.png"
+                  alt="nearby coal depot"
+                  className="w-10"
+                />
+              </a>
+            </Link>
+          </Marker>
+        ))}
       </MapboxMap>
     </div>
   );

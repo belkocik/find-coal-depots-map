@@ -10,6 +10,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { useRouter } from "next/router";
 import { useShowCoalDepotQuery } from "generated/graphql";
 import SingleMap from "src/components/SingleMap";
+import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 
 const ShowCoalDepot = () => {
   const {
@@ -33,8 +34,6 @@ const CoalDepotData = ({ id }: { id: string }) => {
 
   const { coalDepot } = data;
 
-  console.log(coalDepot);
-
   const cld = new Cloudinary({
     cloud: {
       cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -42,17 +41,17 @@ const CoalDepotData = ({ id }: { id: string }) => {
   });
 
   const myImage = cld.image(coalDepot.publicId);
+  myImage.resize(fill().width(250).height(250));
 
   return (
-    <div className="sm:block md:flex">
-      <div className="sm:w-full md:w-1/2 p-4 ">
-        <h1 className="text-3xl my-2 font-bold ">{coalDepot.address}</h1>
+    <div className="sm:block md:flex ">
+      <div className="sm:w-full flex flex-col w-full items-center md:w-1/2 p-4 overflow-y ">
+        <h1 className="text-3xl my-2 font-bold text">{coalDepot.address}</h1>
         <AdvancedImage
           cldImg={myImage}
-          width={900}
-          height={Math.floor((9 / 16) * 900)}
           plugins={[lazyload(), responsive(), placeholder({ mode: "blur" })]}
-          className="rounded-lg"
+          className="rounded-lg "
+          style={{ width: "900px", height: `${(9 / 16) * 900}px` }}
         />
         <div className="text-xl font-semibold mt-2">
           <h2>
@@ -60,7 +59,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
             {coalDepot.coalDepotName}
           </h2>
           <h3>
-            <span className="text-span"> Numer komórki: </span>
+            <span className="text-span">Numer komórki: </span>
 
             {coalDepot.mobilePhone === "" ? "❌" : coalDepot.mobilePhone}
           </h3>
@@ -69,15 +68,15 @@ const CoalDepotData = ({ id }: { id: string }) => {
             {coalDepot.landline === "" ? "❌" : coalDepot.landline}
           </h3>
 
-          <table className="mt-2 border-separate  border border-slate-500 w-full text-center rounded-lg ">
-            <thead className="bg-table1">
+          <table className="mt-2 border-separate  border border-slate-500 text-center rounded-lg text-sm md:text-lg w-full md:w-[900px]">
+            <thead className="bg-tableHead">
               <tr>
                 <th className="border border-slate-600 ">Rodzaj węgla</th>
                 <th className="border border-slate-600 ">Dostępna ilość</th>
                 <th className="border border-slate-600 ">Cena [zł/tona]</th>
               </tr>
             </thead>
-            <tbody className="bg-table2">
+            <tbody className="bg-tableBody">
               <tr>
                 <td className="border border-slate-700 ">
                   Węgiel kostka/orzech/kęsy
@@ -108,7 +107,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
         </div>
       </div>
       <div className="sm:w-full md:w-1/2">
-        <SingleMap coalDepot={coalDepot} />
+        <SingleMap coalDepot={coalDepot} nearby={coalDepot.nearby} />
       </div>
     </div>
   );

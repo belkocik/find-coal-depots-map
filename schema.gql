@@ -14,6 +14,7 @@ type CoalDepot {
   mediumCoalAmount: Float!
   mediumCoalPrice: Float!
   mobilePhone: String!
+  nearby: [CoalDepot!]!
   publicId: String!
   smallCoalAmount: Float!
   smallCoalPrice: Float!
