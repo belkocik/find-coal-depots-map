@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { loadIdToken } from "src/auth/firebaseAdmin";
 import CoalDepotForm from "src/components/CoalDepotForm";
 import { useAuth } from "src/auth/useAuth";
-import { useEditCoalDepotQuery } from "../../../generated/graphql";
+import { useEditCoalDepotQuery } from "generated/graphql";
 
 const EditCoalDepot = () => {
   const {

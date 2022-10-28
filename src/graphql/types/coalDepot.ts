@@ -191,4 +191,40 @@ export class CoalDepotResolver {
       },
     });
   }
+
+  @Authorized()
+  @Mutation((_returns) => CoalDepot, { nullable: true })
+  async updateCoalDepot(
+    @Arg("id") id: string,
+    @Arg("input") input: CoalDepotInput,
+    @Ctx() ctx: AuthorizedContext
+  ) {
+    const coalDepotId = parseInt(id, 10);
+    const coalDepot = await prisma?.coalDepot.findUnique({
+      where: { id: coalDepotId },
+    });
+
+    if (!coalDepot || coalDepot.userId !== ctx.uid) return null;
+
+    return await ctx.prisma.coalDepot.update({
+      where: {
+        id: coalDepot.id,
+      },
+      data: {
+        address: input.address,
+        image: input.image,
+        latitude: input.coordinates.latitude,
+        longitude: input.coordinates.longitude,
+        coalDepotName: input.coalDepotName,
+        mobilePhone: input.mobilePhone,
+        landline: input.landline,
+        mediumCoalAmount: input.mediumCoalAmount,
+        thickCoalAmount: input.thickCoalAmount,
+        smallCoalAmount: input.smallCoalAmount,
+        smallCoalPrice: input.smallCoalPrice,
+        mediumCoalPrice: input.mediumCoalPrice,
+        thickCoalPrice: input.thickCoalPrice,
+      },
+    });
+  }
 }

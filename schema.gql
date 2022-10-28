@@ -56,6 +56,7 @@ type ImageSignature {
 type Mutation {
   createCoalDepot(input: CoalDepotInput!): CoalDepot
   createImageSignature: ImageSignature!
+  updateCoalDepot(id: String!, input: CoalDepotInput!): CoalDepot
 }
 
 type Query {

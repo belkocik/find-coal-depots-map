@@ -1,6 +1,7 @@
 import {
   useCreateImageSignatureMutation,
   useCreateCoalDepotMutation,
+  useUpdateCoalDepotMutation,
 } from "generated/graphql";
 import Link from "next/link";
 import { useState, useEffect, ChangeEvent } from "react";
@@ -8,6 +9,9 @@ import { useForm } from "react-hook-form";
 import { SearchBox } from "src/components/SearchBox";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+
+import { AdvancedImage, AdvancedVideo } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
 
 interface IUploadImageResponse {
   secure_url: string;
@@ -48,14 +52,49 @@ interface IFormData {
   image: FileList;
 }
 
-interface IProps {}
+interface ICoalDepot {
+  id: string;
+  image: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  coalDepotName: string;
+  mobilePhone: string;
+  landline: string;
+  thickCoalAmount: string;
+  mediumCoalAmount: string;
+  smallCoalAmount: string;
+  thickCoalPrice: string;
+  mediumCoalPrice: string;
+  smallCoalPrice: string;
+  publicId: string;
+}
 
-const CoalDepotForm = ({}: IProps) => {
+interface IProps {
+  coalDepot?: ICoalDepot;
+}
+
+const CoalDepotForm = ({ coalDepot }: IProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>();
   const { register, handleSubmit, setValue, watch, errors } =
     useForm<IFormData>({
-      defaultValues: {},
+      defaultValues: coalDepot
+        ? {
+            address: coalDepot.address,
+            latitude: coalDepot.latitude,
+            longitude: coalDepot.longitude,
+            coalDepotName: coalDepot.coalDepotName,
+            landline: coalDepot.landline,
+            mobilePhone: coalDepot.mobilePhone,
+            smallCoalAmount: coalDepot.smallCoalAmount,
+            mediumCoalAmount: coalDepot.mediumCoalAmount,
+            thickCoalAmount: coalDepot.thickCoalAmount,
+            smallCoalPrice: coalDepot.smallCoalPrice,
+            mediumCoalPrice: coalDepot.mediumCoalPrice,
+            thickCoalPrice: coalDepot.thickCoalPrice,
+          }
+        : {},
     });
 
   const router = useRouter();
@@ -67,6 +106,7 @@ const CoalDepotForm = ({}: IProps) => {
 
   const [createSignatureMutation] = useCreateImageSignatureMutation();
   const [createCoalDepotMutation] = useCreateCoalDepotMutation();
+  const [updateCoalDepot] = useUpdateCoalDepotMutation();
 
   const handleCreate = async (data: IFormData) => {
     const { data: signatureData } = await createSignatureMutation();
@@ -106,16 +146,81 @@ const CoalDepotForm = ({}: IProps) => {
     }
   };
 
+  const handleUpdate = async (
+    currentCoalDepot: ICoalDepot,
+    data: IFormData
+  ) => {
+    let image = currentCoalDepot.image; // user didn't change the image
+    // user changed the image
+
+    if (data.image[0]) {
+      const { data: signatureData } = await createSignatureMutation();
+      if (signatureData) {
+        const { signature, timestamp } = signatureData.createImageSignature;
+        // upload image to the cloudinary
+
+        const imageData = await uploadImage(
+          data.image[0],
+          signature,
+          timestamp
+        );
+
+        image = imageData.secure_url; // the new image got the new url to the image u want to change
+      }
+    }
+
+    const { data: coalDepotData } = await updateCoalDepot({
+      variables: {
+        id: currentCoalDepot.id,
+        input: {
+          address: data.address,
+          image,
+          coordinates: {
+            latitude: data.latitude,
+            longitude: data.longitude,
+          },
+          coalDepotName: data.coalDepotName,
+          landline: data.landline,
+          mobilePhone: data.mobilePhone,
+          smallCoalAmount: parseInt(data.smallCoalAmount, 10),
+          mediumCoalAmount: parseInt(data.mediumCoalAmount, 10),
+          thickCoalAmount: parseInt(data.thickCoalAmount, 10),
+          smallCoalPrice: parseInt(data.smallCoalPrice, 10),
+          mediumCoalPrice: parseInt(data.mediumCoalPrice, 10),
+          thickCoalPrice: parseInt(data.thickCoalPrice, 10),
+        },
+      },
+    });
+
+    if (coalDepotData?.updateCoalDepot) {
+      router.push(`/coal-depots/${currentCoalDepot.id}`);
+    }
+  };
+
   const address = watch("address");
 
   const onSubmit = (data: IFormData) => {
     setSubmitting(true);
-    handleCreate(data);
+    if (!!coalDepot) {
+      handleUpdate(coalDepot, data);
+    } else {
+      handleCreate(data);
+    }
   };
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    },
+  });
 
   return (
     <form className="mx-auto max-w-2xl py-4" onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-xl font-semibold">Dodaj nowy skład węgla/opału</h1>
+      <h1 className="text-xl font-semibold">
+        {coalDepot
+          ? `Edytujesz ${coalDepot.address}`
+          : "Dodaj nowy skład węgla/opału"}
+      </h1>
 
       <div className="mt-4">
         <label htmlFor="search" className="block">
@@ -128,7 +233,7 @@ const CoalDepotForm = ({}: IProps) => {
             setValue("latitude", latitude);
             setValue("longitude", longitude);
           }}
-          defaultValue=""
+          defaultValue={coalDepot ? coalDepot.address : ""}
         />
         {errors.address ? (
           <p className="text-red-600">▲ {errors.address.message} ▲</p>
@@ -151,7 +256,7 @@ const CoalDepotForm = ({}: IProps) => {
               style={{ display: "none" }}
               ref={register({
                 validate: (fileList: FileList) => {
-                  if (fileList.length === 1) return true;
+                  if (coalDepot || fileList.length === 1) return true;
                   return "Dodaj tylko jedno zdjęcie";
                 },
               })}
@@ -166,11 +271,17 @@ const CoalDepotForm = ({}: IProps) => {
                 }
               }}
             />
+
             {previewImage ? (
               <img
                 src={previewImage}
                 className="mt-4 object-cover"
                 style={{ width: "100vw", height: `${(9 / 16) * 576}px` }}
+              />
+            ) : coalDepot ? (
+              <AdvancedImage
+                cldImg={cld.image(coalDepot.publicId)}
+                style={{ width: "900px", height: `${(9 / 16) * 900}px` }}
               />
             ) : null}
             {errors.image ? (
@@ -435,7 +546,7 @@ const CoalDepotForm = ({}: IProps) => {
             >
               Wyślij
             </button>{" "}
-            <Link href="/">
+            <Link href={coalDepot ? `/coal-depots/${coalDepot.id}` : "/"}>
               <a className="ml-4">Anuluj</a>
             </Link>
           </div>

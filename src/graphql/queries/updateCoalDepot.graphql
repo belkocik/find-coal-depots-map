@@ -1,0 +1,19 @@
+mutation UpdateCoalDepot($id: String!, $input: CoalDepotInput!) {
+  updateCoalDepot(id: $id, input: $input) {
+    id
+    image
+    address
+    publicId
+    coalDepotName
+    mobilePhone
+    landline
+    latitude
+    longitude
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
+    thickCoalPrice
+    mediumCoalPrice
+    smallCoalPrice
+  }
+}

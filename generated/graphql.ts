@@ -71,10 +71,17 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCoalDepot?: Maybe<CoalDepot>;
   createImageSignature: ImageSignature;
+  updateCoalDepot?: Maybe<CoalDepot>;
 };
 
 
 export type MutationCreateCoalDepotArgs = {
+  input: CoalDepotInput;
+};
+
+
+export type MutationUpdateCoalDepotArgs = {
+  id: Scalars['String'];
   input: CoalDepotInput;
 };
 
@@ -127,6 +134,14 @@ export type ShowCoalDepotQueryVariables = Exact<{
 
 
 export type ShowCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number, nearby: Array<{ __typename?: 'CoalDepot', id: string, latitude: number, longitude: number }> } | null };
+
+export type UpdateCoalDepotMutationVariables = Exact<{
+  id: Scalars['String'];
+  input: CoalDepotInput;
+}>;
+
+
+export type UpdateCoalDepotMutation = { __typename?: 'Mutation', updateCoalDepot?: { __typename?: 'CoalDepot', id: string, image: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
 
 
 export const CreateCoalDepotDocument = gql`
@@ -338,3 +353,51 @@ export function useShowCoalDepotLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type ShowCoalDepotQueryHookResult = ReturnType<typeof useShowCoalDepotQuery>;
 export type ShowCoalDepotLazyQueryHookResult = ReturnType<typeof useShowCoalDepotLazyQuery>;
 export type ShowCoalDepotQueryResult = Apollo.QueryResult<ShowCoalDepotQuery, ShowCoalDepotQueryVariables>;
+export const UpdateCoalDepotDocument = gql`
+    mutation UpdateCoalDepot($id: String!, $input: CoalDepotInput!) {
+  updateCoalDepot(id: $id, input: $input) {
+    id
+    image
+    address
+    publicId
+    coalDepotName
+    mobilePhone
+    landline
+    latitude
+    longitude
+    thickCoalAmount
+    mediumCoalAmount
+    smallCoalAmount
+    thickCoalPrice
+    mediumCoalPrice
+    smallCoalPrice
+  }
+}
+    `;
+export type UpdateCoalDepotMutationFn = Apollo.MutationFunction<UpdateCoalDepotMutation, UpdateCoalDepotMutationVariables>;
+
+/**
+ * __useUpdateCoalDepotMutation__
+ *
+ * To run a mutation, you first call `useUpdateCoalDepotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCoalDepotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCoalDepotMutation, { data, loading, error }] = useUpdateCoalDepotMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateCoalDepotMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCoalDepotMutation, UpdateCoalDepotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCoalDepotMutation, UpdateCoalDepotMutationVariables>(UpdateCoalDepotDocument, options);
+      }
+export type UpdateCoalDepotMutationHookResult = ReturnType<typeof useUpdateCoalDepotMutation>;
+export type UpdateCoalDepotMutationResult = Apollo.MutationResult<UpdateCoalDepotMutation>;
+export type UpdateCoalDepotMutationOptions = Apollo.BaseMutationOptions<UpdateCoalDepotMutation, UpdateCoalDepotMutationVariables>;
