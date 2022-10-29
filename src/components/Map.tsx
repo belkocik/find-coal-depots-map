@@ -128,7 +128,7 @@ const Mapbox = ({ setDataBounds, coalDepots, highligtedId }: IProps) => {
               />
               <h3 className="font-semibold">{selected.coalDepotName}</h3>
               <Link href={`/coal-depots/${selected.id}`}>
-                <button className="bg-transparent hover:bg-buttonHover text-black font-semibold hover:text-white  px-2 py-1 border border-button hover:border-transparent rounded">
+                <button className="bg-transparent hover:bg-buttonHover text-black font-semibold mt-1 px-2 py-1 border border-button hover:border-transparent rounded">
                   Zobacz skład opału
                 </button>
               </Link>

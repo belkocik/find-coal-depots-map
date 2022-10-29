@@ -28,12 +28,12 @@ const ScrollToTop = () => {
         type="button"
         className={
           visible
-            ? "bg-nav hover:bg-navHover focus:ring-nav inline-flex items-center rounded-full p-3 text-white shadow-sm transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2"
+            ? "bg-nav hover:bg-navHover focus:ring-nav inline-flex items-center rounded-full p-3 text-black shadow-sm transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2"
             : "hidden"
         }
         onClick={scrollToTop}
       >
-        <FaArrowCircleUp />
+        <FaArrowCircleUp className="w-5 h-5" />
       </button>
     </div>
   );
