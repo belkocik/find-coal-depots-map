@@ -23,12 +23,11 @@ const parseBounds = (boundsString: string) => {
     },
   };
 };
-
 const Home: NextPage = () => {
   const [highligtedId, setHighligtedId] = useState<string | null>(null);
   const [dataBounds, setDataBounds] = useLocalState<string>(
     "bounds",
-    "[[0,0][0,0]]"
+    "[[0,0],[0,0]]"
   );
 
   const [debouncedDataBounds] = useDebounce(dataBounds, 200);
