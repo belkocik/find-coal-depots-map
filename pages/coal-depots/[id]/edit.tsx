@@ -26,7 +26,7 @@ function CoalDepotData({ id }: { id: string }) {
     return <p>Nie udało się załadować składu opału</p>;
   if (user.uid !== data?.coalDepot?.userId)
     return <p>Nie masz uprawnień aby edytować</p>;
-  // TODO: finish edit coal depot
+
   return <CoalDepotForm coalDepot={data.coalDepot} />;
 }
 

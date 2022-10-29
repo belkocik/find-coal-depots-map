@@ -131,7 +131,7 @@ export type EditCoalDepotQueryVariables = Exact<{
 }>;
 
 
-export type EditCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
+export type EditCoalDepotQuery = { __typename?: 'Query', coalDepot?: { __typename?: 'CoalDepot', id: string, image: string, userId: string, address: string, publicId: string, coalDepotName: string, mobilePhone: string, landline: string, latitude: number, longitude: number, thickCoalAmount: number, mediumCoalAmount: number, smallCoalAmount: number, thickCoalPrice: number, mediumCoalPrice: number, smallCoalPrice: number } | null };
 
 export type GetCoalDepotsFromBoundsQueryVariables = Exact<{
   bounds: BoundsInput;
@@ -257,6 +257,7 @@ export const EditCoalDepotDocument = gql`
     query EditCoalDepot($id: String!) {
   coalDepot(id: $id) {
     id
+    image
     userId
     address
     publicId

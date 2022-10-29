@@ -61,12 +61,12 @@ interface ICoalDepot {
   coalDepotName: string;
   mobilePhone: string;
   landline: string;
-  thickCoalAmount: string;
-  mediumCoalAmount: string;
-  smallCoalAmount: string;
-  thickCoalPrice: string;
-  mediumCoalPrice: string;
-  smallCoalPrice: string;
+  thickCoalAmount: number;
+  mediumCoalAmount: number;
+  smallCoalAmount: number;
+  thickCoalPrice: number;
+  mediumCoalPrice: number;
+  smallCoalPrice: number;
   publicId: string;
 }
 
@@ -87,12 +87,12 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
             coalDepotName: coalDepot.coalDepotName,
             landline: coalDepot.landline,
             mobilePhone: coalDepot.mobilePhone,
-            smallCoalAmount: coalDepot.smallCoalAmount,
-            mediumCoalAmount: coalDepot.mediumCoalAmount,
-            thickCoalAmount: coalDepot.thickCoalAmount,
-            smallCoalPrice: coalDepot.smallCoalPrice,
-            mediumCoalPrice: coalDepot.mediumCoalPrice,
-            thickCoalPrice: coalDepot.thickCoalPrice,
+            smallCoalAmount: coalDepot.smallCoalAmount.toString(),
+            mediumCoalAmount: coalDepot.mediumCoalAmount.toString(),
+            thickCoalAmount: coalDepot.thickCoalAmount.toString(),
+            smallCoalPrice: coalDepot.smallCoalPrice.toString(),
+            mediumCoalPrice: coalDepot.mediumCoalPrice.toString(),
+            thickCoalPrice: coalDepot.thickCoalPrice.toString(),
           }
         : {},
     });
@@ -174,7 +174,7 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
         id: currentCoalDepot.id,
         input: {
           address: data.address,
-          image,
+          image: image,
           coordinates: {
             latitude: data.latitude,
             longitude: data.longitude,

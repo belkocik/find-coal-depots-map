@@ -1,6 +1,7 @@
 query EditCoalDepot($id: String!) {
   coalDepot(id: $id) {
     id
+    image
     userId
     address
     publicId
