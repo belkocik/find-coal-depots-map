@@ -42,10 +42,10 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
                 />
               </div>
               <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 text-center md:text-left">
-                <h2 className="text-sm md:text-lg font-bold ">
+                <h2 className="text-sm md:text-xl font-bold ">
                   {coalDepot.address}
                 </h2>
-                <h3 className="text-sm md:text-mdfont-semibold">
+                <h3 className="text-sm md:text-lg font-semibold">
                   {coalDepot.coalDepotName}
                 </h3>
               </div>

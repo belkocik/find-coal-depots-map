@@ -3,6 +3,7 @@ import { useAuth } from "src/auth/useAuth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useDeleteCoalDepotMutation } from "generated/graphql";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 
 interface IProps {
   coalDepot: {
@@ -19,17 +20,19 @@ const CoalDepotNav = ({ coalDepot }: IProps) => {
   const [deleteCoalDepot, { loading }] = useDeleteCoalDepotMutation();
 
   return (
-    <div className="p-2">
+    <div className="p-2 flex flex-row gap-2">
       <Link href="/">
-        <a>Mapa</a>
+        <a className="flex justify-between items-center">
+          <FaLongArrowAltLeft className="mr-1" />
+          <p> Powróć do mapy {" | "}</p>
+        </a>
       </Link>
       {canManage ? (
         <>
-          {" | "}
           <Link href={`/coal-depots/${coalDepot.id}/edit`}>
-            <a>Edytuj</a>
+            <a> Edytuj {" | "}</a>
           </Link>
-          {" | "}
+
           <button
             disabled={loading}
             type="button"
