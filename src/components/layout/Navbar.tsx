@@ -64,6 +64,14 @@ const Navbar = () => {
                       className="border-b border-gray-400 my-8 uppercase"
                       onClick={() => setIsNavOpen(false)}
                     >
+                      <Link href="/">
+                        <a>Strona główna</a>
+                      </Link>
+                    </li>
+                    <li
+                      className="border-b border-gray-400 my-8 uppercase"
+                      onClick={() => setIsNavOpen(false)}
+                    >
                       <Link href="/coal-depots/add">
                         <a>Dodaj skup węgla</a>
                       </Link>
