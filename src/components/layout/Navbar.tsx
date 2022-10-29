@@ -13,6 +13,7 @@ const Navbar = () => {
             <a
               href="https://www.flaticon.com/free-icon/combustible_6534871#"
               target="_blank"
+              rel="noreferrer"
             >
               <img
                 src="/coal-icon-logo.png"
