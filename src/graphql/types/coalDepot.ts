@@ -227,4 +227,25 @@ export class CoalDepotResolver {
       },
     });
   }
+
+  @Authorized()
+  @Mutation((_retruns) => Boolean, { nullable: false })
+  async deleteCoalDepot(
+    @Arg("id") id: string,
+    @Ctx() ctx: AuthorizedContext
+  ): Promise<boolean> {
+    const coalDepotId = parseInt(id, 10);
+    const coalDepot = await prisma?.coalDepot.findUnique({
+      where: { id: coalDepotId },
+    });
+
+    if (!coalDepot || coalDepot.userId !== ctx.uid) return false;
+
+    await ctx.prisma.coalDepot.delete({
+      where: {
+        id: coalDepotId,
+      },
+    });
+    return true;
+  }
 }

@@ -56,11 +56,11 @@ type ImageSignature {
 type Mutation {
   createCoalDepot(input: CoalDepotInput!): CoalDepot
   createImageSignature: ImageSignature!
+  deleteCoalDepot(id: String!): Boolean!
   updateCoalDepot(id: String!, input: CoalDepotInput!): CoalDepot
 }
 
 type Query {
   coalDepot(id: String!): CoalDepot
   coalDepots(bounds: BoundsInput!): [CoalDepot!]!
-  hello: String!
 }

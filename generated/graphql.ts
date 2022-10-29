@@ -71,12 +71,18 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCoalDepot?: Maybe<CoalDepot>;
   createImageSignature: ImageSignature;
+  deleteCoalDepot: Scalars['Boolean'];
   updateCoalDepot?: Maybe<CoalDepot>;
 };
 
 
 export type MutationCreateCoalDepotArgs = {
   input: CoalDepotInput;
+};
+
+
+export type MutationDeleteCoalDepotArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -89,7 +95,6 @@ export type Query = {
   __typename?: 'Query';
   coalDepot?: Maybe<CoalDepot>;
   coalDepots: Array<CoalDepot>;
-  hello: Scalars['String'];
 };
 
 
@@ -113,6 +118,13 @@ export type CreateImageSignatureMutationVariables = Exact<{ [key: string]: never
 
 
 export type CreateImageSignatureMutation = { __typename?: 'Mutation', createImageSignature: { __typename?: 'ImageSignature', signature: string, timestamp: number } };
+
+export type DeleteCoalDepotMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteCoalDepotMutation = { __typename?: 'Mutation', deleteCoalDepot: boolean };
 
 export type EditCoalDepotQueryVariables = Exact<{
   id: Scalars['String'];
@@ -210,6 +222,37 @@ export function useCreateImageSignatureMutation(baseOptions?: Apollo.MutationHoo
 export type CreateImageSignatureMutationHookResult = ReturnType<typeof useCreateImageSignatureMutation>;
 export type CreateImageSignatureMutationResult = Apollo.MutationResult<CreateImageSignatureMutation>;
 export type CreateImageSignatureMutationOptions = Apollo.BaseMutationOptions<CreateImageSignatureMutation, CreateImageSignatureMutationVariables>;
+export const DeleteCoalDepotDocument = gql`
+    mutation DeleteCoalDepot($id: String!) {
+  deleteCoalDepot(id: $id)
+}
+    `;
+export type DeleteCoalDepotMutationFn = Apollo.MutationFunction<DeleteCoalDepotMutation, DeleteCoalDepotMutationVariables>;
+
+/**
+ * __useDeleteCoalDepotMutation__
+ *
+ * To run a mutation, you first call `useDeleteCoalDepotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCoalDepotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCoalDepotMutation, { data, loading, error }] = useDeleteCoalDepotMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteCoalDepotMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCoalDepotMutation, DeleteCoalDepotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCoalDepotMutation, DeleteCoalDepotMutationVariables>(DeleteCoalDepotDocument, options);
+      }
+export type DeleteCoalDepotMutationHookResult = ReturnType<typeof useDeleteCoalDepotMutation>;
+export type DeleteCoalDepotMutationResult = Apollo.MutationResult<DeleteCoalDepotMutation>;
+export type DeleteCoalDepotMutationOptions = Apollo.BaseMutationOptions<DeleteCoalDepotMutation, DeleteCoalDepotMutationVariables>;
 export const EditCoalDepotDocument = gql`
     query EditCoalDepot($id: String!) {
   coalDepot(id: $id) {

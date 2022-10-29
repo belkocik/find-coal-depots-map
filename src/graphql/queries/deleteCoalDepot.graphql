@@ -1,0 +1,3 @@
+mutation DeleteCoalDepot($id: String!) {
+  deleteCoalDepot(id: $id)
+}
