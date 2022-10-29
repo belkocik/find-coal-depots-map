@@ -1,10 +1,8 @@
 <a align="center">
-  <img src="https://media.graphassets.com/epH89iYsQ8q4FZqeM3mU" width="100%">
+  <img src="https://marcin-niedbalec.vercel.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FEAqiCoKlRteSqICnDvl3&w=1920&q=75" width="100%">
 </a>
 
-# find coal depots on a map app ⚛️
-
-## Working on it...
+# Find coal depots on a map - fullstack app ⚛️
 
 <br />
 
