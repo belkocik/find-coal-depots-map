@@ -33,7 +33,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
             onMouseEnter={() => setHighligtedId(coalDepot.id)}
             onMouseLeave={() => setHighligtedId(null)}
           >
-            <div className="bg-nav flex flex-wrap p-1 md:p-4 rounded-lg">
+            <div className="bg-nav flex flex-col md:flex-row p-1 md:p-4 rounded-lg ">
               <div className="sm:w-full md:w-1/2  ">
                 <AdvancedImage
                   cldImg={cld.image(coalDepot.publicId)}
@@ -41,7 +41,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
                   className="rounded-lg w-80 h-56"
                 />
               </div>
-              <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 text-center md:text-left">
+              <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 text-center md:text-left ">
                 <h2 className="text-sm md:text-xl font-bold ">
                   {coalDepot.address}
                 </h2>
