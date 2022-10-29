@@ -60,7 +60,10 @@ const Navbar = () => {
               <ul className="flex flex-col items-center justify-between min-h-[250px]">
                 {authenticated ? (
                   <>
-                    <li className="border-b border-gray-400 my-8 uppercase">
+                    <li
+                      className="border-b border-gray-400 my-8 uppercase"
+                      onClick={() => setIsNavOpen(false)}
+                    >
                       <Link href="/coal-depots/add">
                         <a>Dodaj skup węgla</a>
                       </Link>

@@ -38,7 +38,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId }: IProps) => {
                 <AdvancedImage
                   cldImg={cld.image(coalDepot.publicId)}
                   plugins={[lazyload(), responsive()]}
-                  className="rounded-lg w-80 h-56"
+                  className="rounded-lg w-80 h-56 object-cover"
                 />
               </div>
               <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 text-center md:text-left ">
