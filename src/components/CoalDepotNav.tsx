@@ -24,15 +24,16 @@ const CoalDepotNav = ({ coalDepot }: IProps) => {
       <Link href="/">
         <a className="flex justify-between items-center">
           <FaLongArrowAltLeft className="mr-1" />
-          <p> Powróć do mapy {" | "}</p>
+          <p> Powróć do mapy </p>
         </a>
       </Link>
       {canManage ? (
         <>
+          {" | "}
           <Link href={`/coal-depots/${coalDepot.id}/edit`}>
-            <a> Edytuj {" | "}</a>
+            <a> Edytuj </a>
           </Link>
-
+          {" | "}
           <button
             disabled={loading}
             type="button"
