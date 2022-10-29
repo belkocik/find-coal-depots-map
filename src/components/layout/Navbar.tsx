@@ -29,7 +29,7 @@ const Navbar = () => {
           </div>
 
           {/* mobile menu start */}
-          <section className=" flex lg:hidden">
+          <section className=" flex lg:hidden z-30">
             <div
               className="space-y-1"
               onClick={() => setIsNavOpen((prev) => !prev)}

@@ -31,8 +31,9 @@ const ScrollToTop = () => {
             ? "bg-nav hover:bg-navHover focus:ring-nav inline-flex items-center rounded-full p-3 text-white shadow-sm transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2"
             : "hidden"
         }
+        onClick={scrollToTop}
       >
-        <FaArrowCircleUp onClick={scrollToTop} />
+        <FaArrowCircleUp />
       </button>
     </div>
   );
