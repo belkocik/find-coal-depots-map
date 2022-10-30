@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useShowCoalDepotQuery } from "generated/graphql";
 import SingleMap from "src/components/SingleMap";
 import CoalDepotNav from "src/components/CoalDepotNav";
-import { CoalDepot } from "../../../generated/graphql";
+import Head from "next/head";
 
 const ShowCoalDepot = () => {
   const {
@@ -46,6 +46,13 @@ const CoalDepotData = ({ id }: { id: string }) => {
 
   return (
     <div className="sm:block md:flex ">
+      <Head>
+        <title>{`${coalDepot.address} - skład opału`}</title>
+        <meta
+          name="description"
+          content={`${coalDepot.address} - ${coalDepot.coalDepotName} - skład opału`}
+        />
+      </Head>
       <div
         className="sm:w-full flex flex-col w-full items-center md:w-1/2 p-4 overflow-y "
         style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}

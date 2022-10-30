@@ -4,6 +4,7 @@ import { loadIdToken } from "src/auth/firebaseAdmin";
 import CoalDepotForm from "src/components/CoalDepotForm";
 import { useAuth } from "src/auth/useAuth";
 import { useEditCoalDepotQuery } from "generated/graphql";
+import Head from "next/head";
 
 const EditCoalDepot = () => {
   const {
@@ -27,7 +28,15 @@ function CoalDepotData({ id }: { id: string }) {
   if (user.uid !== data?.coalDepot?.userId)
     return <p>Nie masz uprawnień aby edytować</p>;
 
-  return <CoalDepotForm coalDepot={data.coalDepot} />;
+  return (
+    <div>
+      <Head>
+        <title>{`Edytuj skład opału o adresie: ${data.coalDepot.address}`}</title>
+        <meta name="description" content="Edycja składu opału" />
+      </Head>
+      <CoalDepotForm coalDepot={data.coalDepot} />;
+    </div>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

@@ -44,9 +44,8 @@ const Home: NextPage = () => {
   return (
     <div className="max-h-screen w-full ">
       <Head>
-        <title>COAL-DEPOTS-MAP</title>
-        <meta name="description" content="Find coal depots in Poland" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Mapa składów węgla/opału</title>
+        <meta name="description" content="apa składów węgla/opału w Polsce" />
       </Head>
       <div className="flex ">
         <div
