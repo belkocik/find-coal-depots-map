@@ -53,7 +53,7 @@ const Home: NextPage = () => {
           className="w-1/2 pb-4 p-2"
           style={{
             maxHeight: "calc(100vh - 64px)",
-            overflowX: "scroll",
+            overflowX: "auto",
           }}
         >
           <CoalDepotsList
