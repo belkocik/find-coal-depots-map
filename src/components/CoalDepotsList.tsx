@@ -26,7 +26,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId, loading }: IProps) => {
 
   if (loading)
     return (
-      <div className="mx-1 md:mx-2 cursor-pointer flex flex-col">
+      <div className="mx-1 md:mx-2 flex flex-col">
         <CoalDepotListSkeleton />
         <CoalDepotListSkeleton />
         <CoalDepotListSkeleton />
@@ -34,7 +34,12 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId, loading }: IProps) => {
       </div>
     );
 
-  // if (coalDepots.length === 0) return <p>Brak danych do wyświetlenia</p>;
+  if (coalDepots.length === 0)
+    return (
+      <p className="text-lg font-semibold mt-2">
+        Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
+      </p>
+    );
 
   return (
     <>
@@ -87,10 +92,10 @@ const CoalDepotListSkeleton = () => {
           </svg>
         </div>
       </div>
-      <div className="sm:w-full md:w-1/2 sm:pl-0 md:pl-4 flex flex-col justify-center p-2 ">
-        <div className="h-2 bg-skeleton rounded-full mb-2.5 max-w-[350px] "></div>
+      <div className="sm:w-full md:w-1/2 sm:pl-4 md:pl-4 flex flex-col justify-center p-2 ">
+        <div className="h-2 bg-skeleton rounded-full mb-2.5  max-w-[200px] xl:max-w-[350px] "></div>
 
-        <div className="h-2 bg-skeleton rounded-full max-w-[300px]"></div>
+        <div className="h-2 bg-skeleton rounded-full  max-w-[150px] xl:max-w-[300px]"></div>
       </div>
     </div>
   );
