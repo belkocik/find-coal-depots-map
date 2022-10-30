@@ -14,6 +14,7 @@ module.exports = {
         span: "#361b17",
         tableHead: "#faf2e8",
         tableBody: "#e8dbc9",
+        skeleton: "#c8ac86",
       },
       screens: {
         "4xl": "1840px",

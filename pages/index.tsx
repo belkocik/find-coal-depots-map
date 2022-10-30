@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 
   const [debouncedDataBounds] = useDebounce(dataBounds, 200);
 
-  const { data, error } = useGetCoalDepotsFromBoundsQuery({
+  const { data, error, loading } = useGetCoalDepotsFromBoundsQuery({
     variables: {
       bounds: parseBounds(debouncedDataBounds),
     },
@@ -51,11 +51,15 @@ const Home: NextPage = () => {
       <div className="flex ">
         <div
           className="w-1/2 pb-4 p-2"
-          style={{ maxHeight: "calc(100vh - 64px)", overflowX: "scroll" }}
+          style={{
+            maxHeight: "calc(100vh - 64px)",
+            overflowX: "scroll",
+          }}
         >
           <CoalDepotsList
             coalDepots={lastData ? lastData.coalDepots : []}
             setHighligtedId={setHighligtedId}
+            loading={loading}
           />
         </div>
         <div className="w-1/2">
