@@ -90,6 +90,14 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
+                    <li
+                      className="border-b border-gray-400 my-8 uppercase"
+                      onClick={() => setIsNavOpen(false)}
+                    >
+                      <Link href="/">
+                        <a>Strona główna</a>
+                      </Link>
+                    </li>
                     <li className="border-b border-gray-400 my-8 uppercase">
                       <Link href="/auth">
                         <a onClick={() => setIsNavOpen(false)}>Zaloguj się</a>

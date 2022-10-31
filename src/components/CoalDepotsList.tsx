@@ -78,7 +78,7 @@ export default CoalDepotsList;
 
 const CoalDepotListSkeleton = () => {
   return (
-    <div className="bg-nav flex flex-col md:flex-row p-1 md:p-4 rounded-lg mt-2 ">
+    <div className="bg-nav flex flex-col md:flex-row p-1 md:p-4 rounded-lg mt-2 animate-pulse">
       <div className="sm:w-full md:w-1/2">
         <div className="bg-skeleton w-[164px] h-56 md:w-80 md:h-56 flex justify-center items-center rounded-lg">
           <svg
