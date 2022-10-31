@@ -366,7 +366,7 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
                 type="number"
                 id="thickCoalAmount"
                 name="thickCoalAmount"
-                placeholder="10"
+                placeholder="15"
                 className="p-2  w-20 md:w-60"
                 ref={register({
                   required: "Podaj ilość węgla",
@@ -389,13 +389,13 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
 
             <div className="mt-2 md:mt-4">
               <label htmlFor="thickCoalPrice" className="block font-semibold">
-                Cena [zł]
+                Cena [zł/tona]
               </label>
               <input
                 type="number"
                 id="thickCoalPrice"
                 name="thickCoalPrice"
-                placeholder="1000"
+                placeholder="1400"
                 className="p-2 w-20 md:w-60"
                 ref={register({
                   required: "Podaj cenę węgla",
@@ -452,13 +452,13 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
 
             <div className="md:mt-4">
               <label htmlFor="mediumCoalPrice" className="block font-semibold">
-                Cena [zł]
+                Cena [zł/tona]
               </label>
               <input
                 type="number"
                 id="mediumCoalPrice"
                 name="mediumCoalPrice"
-                placeholder="1000"
+                placeholder="1200"
                 className="p-2  w-20 md:w-60"
                 ref={register({
                   required: "Podaj cenę węgla",
@@ -488,7 +488,7 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
                 type="number"
                 id="smallCoalAmount"
                 name="smallCoalAmount"
-                placeholder="10"
+                placeholder="70"
                 className="p-2 w-20 md:w-60"
                 ref={register({
                   required: "Podaj ilość węgla",
@@ -510,7 +510,7 @@ const CoalDepotForm = ({ coalDepot }: IProps) => {
             </div>
             <div className="md:mt-4">
               <label htmlFor="smallCoalPrice" className="block font-semibold">
-                Cena [zł]
+                Cena [zł/tona]
               </label>
               <input
                 type="number"
