@@ -12,6 +12,7 @@ import { useShowCoalDepotQuery } from "generated/graphql";
 import SingleMap from "src/components/SingleMap";
 import CoalDepotNav from "src/components/CoalDepotNav";
 import Head from "next/head";
+import Footer from "src/components/layout/Footer";
 
 const ShowCoalDepot = () => {
   const {
@@ -42,7 +43,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
   });
 
   const myImage = cld.image(coalDepot.publicId);
-  myImage.resize(fill().width(900).height(506));
+  myImage.resize(fill().width(900).height(768));
 
   return (
     <div className="sm:block md:flex ">
@@ -63,7 +64,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
           cldImg={myImage}
           plugins={[lazyload(), responsive(), placeholder({ mode: "blur" })]}
           className="rounded-lg"
-          style={{ width: "900px", height: `${(9 / 16) * 900}px` }}
+          style={{ width: "900px", height: `${(9 / 16) * 768}px` }}
         />
         <div className="text-xl font-semibold mt-2 ">
           <h2>
@@ -123,6 +124,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
             </tbody>
           </table>
         </div>
+        <Footer />
       </div>
       <div className="sm:w-full md:w-1/2">
         <SingleMap coalDepot={coalDepot} nearby={coalDepot.nearby} />
