@@ -85,7 +85,9 @@ const CoalDepotData = ({ id }: { id: string }) => {
             <thead className="bg-tableHead">
               <tr>
                 <th className="border border-slate-600 ">Rodzaj węgla</th>
-                <th className="border border-slate-600 ">Dostępna ilość</th>
+                <th className="border border-slate-600 ">
+                  Dostępna ilość [tony]
+                </th>
                 <th className="border border-slate-600 ">Cena [zł/tona]</th>
               </tr>
             </thead>
@@ -95,7 +97,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
                   Węgiel kostka/orzech/kęsy
                 </td>
                 <td className="border border-slate-700 ">
-                  {coalDepot.thickCoalAmount}t
+                  {coalDepot.thickCoalAmount}
                 </td>
                 <td className="border border-slate-700 ">
                   {coalDepot.thickCoalPrice}
@@ -106,7 +108,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
                   Węgiel grysik/groszek/ekogroszek
                 </td>
                 <td className="border border-slate-700 ">
-                  {coalDepot.mediumCoalAmount}t
+                  {coalDepot.mediumCoalAmount}
                 </td>
                 <td className="border border-slate-700 ">
                   {coalDepot.mediumCoalPrice}
@@ -115,7 +117,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
               <tr>
                 <td className="border border-slate-700 ">Węgiel miał</td>
                 <td className="border border-slate-700 ">
-                  {coalDepot.smallCoalAmount}t
+                  {coalDepot.smallCoalAmount}
                 </td>
                 <td className="border border-slate-700 ">
                   {coalDepot.smallCoalPrice}
