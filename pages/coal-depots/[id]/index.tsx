@@ -42,7 +42,7 @@ const CoalDepotData = ({ id }: { id: string }) => {
   });
 
   const myImage = cld.image(coalDepot.publicId);
-  myImage.resize(fill().width(250).height(250));
+  myImage.resize(fill().width(900).height(506));
 
   return (
     <div className="sm:block md:flex ">
