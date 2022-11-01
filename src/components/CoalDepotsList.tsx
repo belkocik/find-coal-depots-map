@@ -34,12 +34,12 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId, loading }: IProps) => {
       </div>
     );
 
-  if (coalDepots.length === 0)
-    return (
-      <p className="text-lg font-semibold mt-2">
-        Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
-      </p>
-    );
+  // if (coalDepots.length === 0)
+  //   return (
+  //     <p className="text-lg font-semibold mt-2">
+  //       Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
+  //     </p>
+  //   );
 
   return (
     <>
@@ -80,7 +80,7 @@ const CoalDepotListSkeleton = () => {
   return (
     <div className="bg-nav flex flex-col md:flex-row p-1 md:p-4 rounded-lg mt-2 animate-pulse">
       <div className="sm:w-full md:w-1/2">
-        <div className="bg-skeleton w-[164px] h-56 md:w-80 md:h-56 flex justify-center items-center rounded-lg">
+        <div className="bg-skeleton w-full h-56 md:w-80 md:h-56 flex justify-center items-center rounded-lg">
           <svg
             className="w-12 h-12 text-nav"
             xmlns="http://www.w3.org/2000/svg"
