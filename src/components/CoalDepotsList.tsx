@@ -1,6 +1,7 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, lazyload, responsive } from "@cloudinary/react";
 import Link from "next/link";
+import { FaSearchLocation } from "react-icons/fa";
 
 interface CoalDepot {
   id: string;
@@ -34,12 +35,15 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId, loading }: IProps) => {
       </div>
     );
 
-  // if (coalDepots.length === 0)
-  //   return (
-  //     <p className="text-lg font-semibold mt-2">
-  //       Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
-  //     </p>
-  //   );
+  if (coalDepots.length === 0)
+    return (
+      <div className="text-lg font-semibold mt-2 flex flex-col items-center bg-nav p-6 rounded-lg">
+        <FaSearchLocation className="ml-8 w-12 h-12" />
+        <p className="text-xl mt-2">
+          Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
+        </p>
+      </div>
+    );
 
   return (
     <>
