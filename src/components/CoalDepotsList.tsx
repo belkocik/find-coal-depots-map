@@ -38,7 +38,7 @@ const CoalDepotsList = ({ coalDepots, setHighligtedId, loading }: IProps) => {
   if (coalDepots.length === 0)
     return (
       <div className="text-lg font-semibold mt-2 flex flex-col items-center bg-nav p-6 rounded-lg">
-        <FaSearchLocation className="ml-8 w-12 h-12" />
+        <FaSearchLocation className="w-12 h-12" />
         <p className="text-xl mt-2">
           Zakres wyświetlanej mapy nie obejmuje żadnego składu opału.
         </p>
